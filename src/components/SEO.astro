@@ -1,0 +1,15 @@
+---
+const { title, description, image } = Astro.props;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+<meta name="description" content={description} />
+
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content="website" />
+<meta property="og:image" content={image || ""} />
+
+<link rel="icon" type="image/png" href="https://theballplex.com/wp-content/uploads/brizy/imgs/logo-final-elemento-texto-blanco-225x225x2x41x220x139x1684912422.png" />

@@ -1,0 +1,179 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import StatsBar from "../components/StatsBar.astro";
+import Facility from "../components/Facility.astro";
+import ProgramCard from "../components/ProgramCard.astro";
+import CoachCard from "../components/CoachCard.astro";
+import TestimonialCard from "../components/TestimonialCard.astro";
+import CTABanner from "../components/CTABanner.astro";
+import { programs } from "../data/programs";
+import { coaches } from "../data/coaches";
+import { testimonials } from "../data/testimonials";
+import { siteConfig } from "../data/site";
+
+const featuredCoaches = coaches.slice(0, 4);
+
+const galleryImages = [
+  {
+    src: "https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4115-433x577x49x0x352x577x1758559248.webp",
+    alt: "Ballplex Training",
+    span: "col-span-1 row-span-2 sm:col-span-2 sm:row-span-2",
+  },
+  {
+    src: "https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4117-548x731x0x80x548x570x1758559312.webp",
+    alt: "Ballplex Facility",
+    span: "col-span-1 row-span-1 sm:col-span-1",
+  },
+  {
+    src: "https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4121-323x431x0x86x323x259x1758559372.webp",
+    alt: "Ballplex Training",
+    span: "col-span-1 row-span-1 sm:col-span-1",
+  },
+  {
+    src: "https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4126-323x431x0x86x323x259x1758560649.webp",
+    alt: "Ballplex Training",
+    span: "col-span-1 row-span-1",
+  },
+  {
+    src: "https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4128-577x433x0x0x577x254x1758560711.webp",
+    alt: "Ballplex Facility",
+    span: "col-span-2 sm:col-span-2",
+  },
+  {
+    src: "https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4134-273x365x0x49x273x266x1758560861.webp",
+    alt: "Ballplex Facility",
+    span: "col-span-1",
+  },
+  {
+    src: "https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4132-355x267x82x0x273x267x1758560807.webp",
+    alt: "Ballplex Training",
+    span: "col-span-1",
+  },
+];
+---
+
+<BaseLayout title="Ballplex — Elite Baseball & Softball Development" description={siteConfig.description}>
+  <Hero />
+
+  <StatsBar />
+
+  <section class="bg-brand-dark py-24 md:py-32">
+    <div class="container-page">
+      <div class="mb-16 text-center" data-reveal>
+        <p class="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
+          Programs
+        </p>
+        <h2 class="section-heading">
+          Everything Under One Roof
+        </h2>
+        <p class="section-subtitle mx-auto mt-5">
+          From private lessons to a full homeschool program, every service is designed to develop complete ballplayers.
+        </p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {programs.map((program, i) => (
+          <div data-reveal data-delay={String(i * 80)}>
+            <ProgramCard program={program} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Facility />
+
+  <section class="relative overflow-hidden py-24 md:py-32 section-highlight">
+    <div class="absolute inset-0 bg-grid-pattern"></div>
+
+    <div class="container-page relative z-10">
+      <div class="mb-16 text-center" data-reveal>
+        <p class="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
+          Inside Ballplex
+        </p>
+        <h2 class="section-heading">
+          See the Facility
+        </h2>
+        <p class="section-subtitle mx-auto mt-5">
+          Take a look inside Brevard County's premier baseball and softball training destination.
+        </p>
+      </div>
+
+      <div class="grid auto-rows-[240px] grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 md:auto-rows-[300px] md:grid-cols-4">
+        {galleryImages.map((img, i) => (
+          <div
+            class={`img-zoom ${img.span}`}
+            data-reveal="scale"
+            data-delay={String(i * 80)}
+          >
+            <img
+              src={img.src}
+              alt={img.alt}
+              class="h-full w-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden bg-brand-black py-24 md:py-32">
+    <div class="absolute inset-0 bg-grid-pattern"></div>
+
+    <div class="container-page relative z-10">
+      <div class="mb-16 text-center" data-reveal>
+        <p class="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
+          Coaching Staff
+        </p>
+        <h2 class="section-heading">
+          Led by Pros. Built for Development.
+        </h2>
+        <p class="section-subtitle mx-auto mt-5">
+          Former professional players and elite coaches dedicated to developing the next generation of athletes.
+        </p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {featuredCoaches.map((coach, i) => (
+          <div data-reveal data-delay={String(i * 100)}>
+            <CoachCard coach={coach} />
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-14 text-center" data-reveal data-delay="400">
+        <a href="/programs#coaches" class="btn-outline">
+          Meet All Coaches
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-brand-dark py-24 md:py-32">
+    <div class="container-page">
+      <div class="mb-16 text-center" data-reveal>
+        <p class="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
+          Testimonials
+        </p>
+        <h2 class="section-heading">
+          What Families Say
+        </h2>
+        <p class="section-subtitle mx-auto mt-5">
+          Trusted by parents and athletes across Brevard County.
+        </p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-3">
+        {testimonials.map((t, i) => (
+          <div data-reveal data-delay={String(i * 150)}>
+            <TestimonialCard testimonial={t} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</BaseLayout>

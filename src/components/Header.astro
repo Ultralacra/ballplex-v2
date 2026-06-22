@@ -1,0 +1,116 @@
+---
+import { navLinks, siteConfig } from "../data/site";
+---
+
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-50 border-b border-transparent bg-transparent transition-all duration-500"
+>
+  <nav id="site-nav" class="container-page flex h-24 items-center justify-between transition-all duration-500 md:h-32">
+    <a href="/" class="flex items-center gap-3" aria-label="Ballplex Home">
+      <img
+        src="https://theballplex.com/wp-content/uploads/brizy/imgs/logo-final-elemento-texto-blanco-225x225x2x41x220x139x1684912422.png"
+        alt="Ballplex"
+        class="h-20 w-auto transition-all duration-500 md:h-28"
+        id="header-logo"
+      />
+    </a>
+
+    <ul class="hidden items-center gap-1 lg:flex">
+      {
+        navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="link-underline rounded-lg px-4 py-2 text-sm font-medium text-white/60 transition-colors hover:text-white"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex items-center gap-4">
+      <a
+        href={siteConfig.bookNowUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-primary"
+      >
+        <span>Book Now</span>
+      </a>
+
+      <button
+        id="mobile-menu-btn"
+        class="flex flex-col gap-1.5 p-2 lg:hidden"
+        aria-label="Toggle menu"
+      >
+        <span class="block h-0.5 w-5 bg-white transition-all duration-300"></span>
+        <span class="block h-0.5 w-5 bg-white transition-all duration-300"></span>
+        <span class="block h-0.5 w-5 bg-white transition-all duration-300"></span>
+      </button>
+    </div>
+  </nav>
+
+  <div
+    id="mobile-menu"
+    class="hidden border-t border-white/10 bg-black/95 backdrop-blur-xl lg:hidden"
+  >
+    <ul class="container-page flex flex-col gap-1 py-4">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="block rounded-lg px-4 py-3 text-base font-medium text-white/60 transition-colors hover:text-white hover:bg-white/5"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById("mobile-menu-btn");
+  const menu = document.getElementById("mobile-menu");
+  if (btn && menu) {
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+  }
+
+  const header = document.getElementById("site-header");
+  const nav = document.getElementById("site-nav");
+  const logo = document.getElementById("header-logo");
+  if (header && nav && logo) {
+    const scrolledClasses = {
+      header: ["bg-black/80", "backdrop-blur-xl", "border-white/10", "shadow-lg"],
+      nav: {
+        add: ["h-20", "md:h-24"],
+        remove: ["h-24", "md:h-32"],
+      },
+      logo: {
+        add: ["h-16", "md:h-24"],
+        remove: ["h-20", "md:h-28"],
+      },
+    };
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 20) {
+        header.classList.add(...scrolledClasses.header);
+        nav.classList.add(...scrolledClasses.nav.add);
+        nav.classList.remove(...scrolledClasses.nav.remove);
+        logo.classList.add(...scrolledClasses.logo.add);
+        logo.classList.remove(...scrolledClasses.logo.remove);
+      } else {
+        header.classList.remove(...scrolledClasses.header);
+        nav.classList.remove(...scrolledClasses.nav.add);
+        nav.classList.add(...scrolledClasses.nav.remove);
+        logo.classList.remove(...scrolledClasses.logo.add);
+        logo.classList.add(...scrolledClasses.logo.remove);
+      }
+    }, { passive: true });
+  }
+</script>
