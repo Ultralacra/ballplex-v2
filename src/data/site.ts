@@ -12,8 +12,8 @@ export interface FacilityFeature {
 export const stats: Stat[] = [
   { value: "150+", label: "Athletes Trained Weekly" },
   { value: "10,500", label: "sqft Climate-Controlled" },
-  { value: "50+", label: "Homeschool Athletes" },
-  { value: "9", label: "Professional Coaches" },
+  { value: "40+", label: "Homeschool Athletes" },
+  { value: "12", label: "Professional Coaches" },
 ];
 
 export const facilityFeatures: FacilityFeature[] = [
@@ -51,9 +51,9 @@ export const facilityFeatures: FacilityFeature[] = [
 
 export const siteConfig = {
   name: "Ballplex",
-  tagline: "Train. Develop. Compete.",
+  tagline: "Learn. Develop. Perform.",
   description:
-    "Elite Baseball & Softball Development in Viera, Florida. Private Lessons, Homeschool Program, Strength & Conditioning, and Cage Rentals under one roof.",
+    "Elite Baseball & Softball Player Development in Viera, Florida. Private Lessons, Homeschool Program, Strength & Conditioning and Cage Rentals.",
   phone: "(321) 321-5558",
   email: "manager@theballplex.com",
   addresses: [
@@ -73,11 +73,28 @@ export const siteConfig = {
   },
 };
 
-export const navLinks = [
+export interface NavLink {
+  label: string;
+  href: string;
+  children?: NavLink[];
+}
+
+export const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
-  { label: "Programs", href: "/programs" },
+  {
+    label: "Services",
+    href: "/programs",
+    children: [
+      { label: "Private Lessons", href: "/programs#lessons" },
+      { label: "Memberships", href: "/programs#memberships" },
+      { label: "Strength & Conditioning", href: "/programs#strength" },
+      { label: "Homeschool", href: "/homeschool" },
+      { label: "Cage Rentals", href: "/programs#rentals" },
+      { label: "Camps & Events", href: "/programs#camps" },
+    ],
+  },
+  { label: "Coaches", href: "/programs#coaches" },
   { label: "Events", href: "/events" },
-  { label: "Homeschool", href: "/homeschool" },
   { label: "Store", href: "/store" },
   { label: "Contact", href: "/contact" },
 ];

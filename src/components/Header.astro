@@ -9,7 +9,7 @@ import { navLinks, siteConfig } from "../data/site";
   <nav id="site-nav" class="container-page flex h-24 items-center justify-between transition-all duration-500 md:h-32">
     <a href="/" class="flex items-center gap-3" aria-label="Ballplex Home">
       <img
-        src="https://theballplex.com/wp-content/uploads/brizy/imgs/logo-final-elemento-texto-blanco-225x225x2x41x220x139x1684912422.png"
+        src="/LOGO.png"
         alt="Ballplex"
         class="h-20 w-auto transition-all duration-500 md:h-28"
         id="header-logo"
@@ -19,13 +19,30 @@ import { navLinks, siteConfig } from "../data/site";
     <ul class="hidden items-center gap-1 lg:flex">
       {
         navLinks.map((link) => (
-          <li>
+          <li class={link.children ? "group relative" : ""}>
             <a
               href={link.href}
               class="link-underline rounded-lg px-4 py-2 text-sm font-medium text-white/60 transition-colors hover:text-white"
             >
               {link.label}
+              {link.children && (
+                <svg class="ml-1 inline-block h-3 w-3 transition-transform duration-200 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              )}
             </a>
+            {link.children && (
+              <div class="invisible absolute top-full left-0 z-50 mt-1 min-w-[200px] translate-y-2 rounded-xl border border-white/10 bg-zinc-950/95 p-2 opacity-0 shadow-2xl backdrop-blur-xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                {link.children.map((child) => (
+                  <a
+                    href={child.href}
+                    class="block rounded-lg px-4 py-2.5 text-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white"
+                  >
+                    {child.label}
+                  </a>
+                ))}
+              </div>
+            )}
           </li>
         ))
       }
@@ -82,6 +99,20 @@ import { navLinks, siteConfig } from "../data/site";
           >
             {link.label}
           </a>
+          {link.children && (
+            <ul class="ml-4 mt-1 space-y-1 border-l border-white/10 pl-4">
+              {link.children.map((child) => (
+                <li>
+                  <a
+                    href={child.href}
+                    class="block rounded-lg px-4 py-2 text-sm font-medium text-white/40 transition-colors hover:text-white hover:bg-white/5"
+                  >
+                    {child.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
         </li>
       ))}
     </ul>

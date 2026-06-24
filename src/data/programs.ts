@@ -12,7 +12,7 @@ export const programs: Program[] = [
   {
     id: "lessons",
     title: "Private Lessons",
-    description: "Personalized 1-on-1 or duo instruction in hitting, pitching, catching, and fielding. Every lesson uses Rapsodo and HitTrax technology to track progress from day one.",
+    description: "Personalized 1-on-1 or duo instruction in hitting, pitching, catching, and fielding. HitTrax and Rapsodo technology available for detailed performance tracking.",
     icon: "user",
     link: "/programs#lessons",
     pricing: "From $80/hr",
@@ -20,7 +20,7 @@ export const programs: Program[] = [
   {
     id: "memberships",
     title: "Memberships",
-    description: "Three tiers — Pro, All-Access, and Elite — designed for athletes who take their development seriously. Includes assessments, programming, open cage time, and exclusive discounts.",
+    description: "Monthly plans designed for athletes who take their development seriously. Includes assessments, programming, open cage time, and exclusive discounts.",
     icon: "badge",
     link: "/programs#memberships",
     pricing: "From $95/month",
@@ -36,7 +36,7 @@ export const programs: Program[] = [
   {
     id: "homeschool",
     title: "Homeschool Program",
-    description: "A complete academic and athletic program for competitive baseball and softball student-athletes. Daily training combined with a nationally recognized curriculum through TNXL Academy.",
+    description: "A complete academic and athletic program for competitive baseball and softball student-athletes. Daily training with our coaches combined with a nationally recognized curriculum led by our certified teachers.",
     icon: "book",
     link: "/homeschool",
     pricing: "",
@@ -44,7 +44,7 @@ export const programs: Program[] = [
   {
     id: "rentals",
     title: "Cage Rentals",
-    description: "6,000 sqft of indoor cage space with 5 cages available for individual, duo, or team rentals. Pitching machines and equipment included options.",
+    description: "6,000 sqft of indoor cage space with 5 cages available for individual, duo or team rentals. Pitching machines and equipment options available.",
     icon: "target",
     link: "/programs#rentals",
     pricing: "From $40/hr",

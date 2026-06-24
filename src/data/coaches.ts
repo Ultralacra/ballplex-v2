@@ -29,11 +29,11 @@ export const coaches: Coach[] = [
   },
   {
     name: "Jamie Gilbert",
-    role: "Softball Pitching Coach",
-    bio: "Experienced softball pitching coach dedicated to developing young arms with proper mechanics and mental toughness.",
+    role: "Pitching Coach (Softball)",
+    bio: "Former Division I pitcher at the University of Texas at San Antonio, where she accumulated more than 370 collegiate innings in the circle. Jamie brings extensive experience in pitcher development, helping athletes improve mechanics, command, velocity, and overall confidence on the mound. Her approach combines high-level playing experience with individualized instruction designed to help pitchers compete at their highest level.",
     specialties: "Pitching (Softball)",
     quote: "",
-    image: "https://theballplex.com/wp-content/uploads/brizy/imgs/4-478x319x62x0x354x319x1759182060.jpeg",
+    image: "",
     instagram: "",
   },
   {
@@ -42,7 +42,7 @@ export const coaches: Coach[] = [
     bio: "Former college baseball player with ISSA certifications and over 5 years of experience training athletes, including college and MLB players.",
     specialties: "Strength & Conditioning",
     quote: "",
-    image: "https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4117-548x731x0x80x548x570x1758559312.webp",
+    image: "",
     instagram: "",
   },
   {
@@ -98,5 +98,14 @@ export const coaches: Coach[] = [
     quote: "Every strike brings me closer to the next home run. — Yogi Berra",
     image: "https://theballplex.com/wp-content/uploads/brizy/imgs/Screen-Shot-2024-05-02-at-6.00.35-PM-353x359x0x0x353x287x1714687262.png",
     instagram: "@austindennis2",
+  },
+  {
+    name: "Rylan Thomas",
+    role: "Hitting Coach (Baseball, Softball)",
+    bio: "Former Division I standout at University of Central Florida and professional player in the Cincinnati Reds system after being selected in the 2018 MLB Draft. Rylan was recognized as one of the top hitters in college baseball, earning All-Conference honors while setting multiple offensive records at UCF. He specializes in swing development, approach, power production, and helping hitters maximize their performance at the plate.",
+    specialties: "Hitting (Baseball & Softball)",
+    quote: "",
+    image: "",
+    instagram: "",
   },
 ];
