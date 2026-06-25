@@ -32,7 +32,7 @@ import { siteConfig } from "../data/site";
       data-reveal
       data-delay="100"
     >
-      {siteConfig.tagline.split(". ").map((line, i) => (
+      {siteConfig.tagline.replace(/\.\s*$/, "").split(". ").map((line, i) => (
         <>
           {line}.{i < 2 && <br />}
         </>
