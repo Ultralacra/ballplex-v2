@@ -45,7 +45,7 @@ export const facilityFeatures: FacilityFeature[] = [
   {
     icon: "ruler",
     title: "10,500 sqft",
-    description: "Massive indoor training space. Everything — hitting, pitching, defense, and strength — under one roof.",
+    description: "Massive indoor training space. Everything — hitting, pitching, defense, and strength — in specialized facilities.",
   },
 ];
 
