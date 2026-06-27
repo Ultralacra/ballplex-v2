@@ -33,7 +33,7 @@ export const coaches: Coach[] = [
     bio: "Former Division I pitcher at the University of Texas at San Antonio, where she accumulated more than 370 collegiate innings in the circle. Jamie brings extensive experience in pitcher development, helping athletes improve mechanics, command, velocity, and overall confidence on the mound. Her approach combines high-level playing experience with individualized instruction designed to help pitchers compete at their highest level.",
     specialties: "Pitching (Softball)",
     quote: "",
-    image: "",
+    image: "/COACHES/JAMIE.jpeg",
     instagram: "",
   },
   {
@@ -105,7 +105,7 @@ export const coaches: Coach[] = [
     bio: "Former Division I standout at University of Central Florida and professional player in the Cincinnati Reds system after being selected in the 2018 MLB Draft. Rylan was recognized as one of the top hitters in college baseball, earning All-Conference honors while setting multiple offensive records at UCF. He specializes in swing development, approach, power production, and helping hitters maximize their performance at the plate.",
     specialties: "Hitting (Baseball & Softball)",
     quote: "",
-    image: "",
+    image: "/COACHES/Rylan.jpeg",
     instagram: "",
   },
 ];
