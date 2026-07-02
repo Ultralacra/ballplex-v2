@@ -16,38 +16,38 @@ const featuredCoaches = coaches.slice(0, 4);
 
 const galleryImages = [
   {
-    src: "https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4115-433x577x49x0x352x577x1758559248.webp",
+    src: "/images-lessons/d577b0a5-d7c6-4fd8-a896-b72b3d522a96 2.JPG.jpeg",
     alt: "Ballplex Training",
     span: "col-span-1 row-span-2 sm:col-span-2 sm:row-span-2",
   },
   {
-    src: "https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4117-548x731x0x80x548x570x1758559312.webp",
-    alt: "Ballplex Facility",
-    span: "col-span-1 row-span-1 sm:col-span-1",
-  },
-  {
-    src: "https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4121-323x431x0x86x323x259x1758559372.webp",
+    src: "/images-lessons/DSC00748.JPG.jpeg",
     alt: "Ballplex Training",
     span: "col-span-1 row-span-1 sm:col-span-1",
   },
   {
-    src: "https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4126-323x431x0x86x323x259x1758560649.webp",
+    src: "/images-lessons/DSC00828.JPG.jpeg",
     alt: "Ballplex Training",
+    span: "col-span-1 row-span-1 sm:col-span-1",
+  },
+  {
+    src: "/SC/IMG_4119 2.jpg",
+    alt: "Ballplex Strength & Conditioning",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4128-577x433x0x0x577x254x1758560711.webp",
-    alt: "Ballplex Facility",
+    src: "/SC/IMG_5973.jpg",
+    alt: "Ballplex Strength & Conditioning",
     span: "col-span-2 sm:col-span-2",
   },
   {
-    src: "https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4134-273x365x0x49x273x266x1758560861.webp",
-    alt: "Ballplex Facility",
+    src: "/rentals/IMG_5967.jpg.jpeg",
+    alt: "Ballplex Cage Rentals",
     span: "col-span-1",
   },
   {
-    src: "https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4132-355x267x82x0x273x267x1758560807.webp",
-    alt: "Ballplex Training",
+    src: "/rentals/e13429f3-b13b-4bc5-a54a-6173978d8248.JPG.jpeg",
+    alt: "Ballplex Cage Rentals",
     span: "col-span-1",
   },
 ];
@@ -100,22 +100,7 @@ const galleryImages = [
         </p>
       </div>
 
-      <div class="grid auto-rows-[240px] grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 md:auto-rows-[300px] md:grid-cols-4">
-        {galleryImages.map((img, i) => (
-          <div
-            class={`img-zoom ${img.span}`}
-            data-reveal="scale"
-            data-delay={String(i * 80)}
-          >
-            <img
-              src={img.src}
-              alt={img.alt}
-              class="h-full w-full object-cover"
-              loading="lazy"
-            />
-          </div>
-        ))}
-      </div>
+      <div class="grid auto-rows-[200px] grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 md:auto-rows-[260px] md:grid-cols-4">
     </div>
   </section>
 

@@ -97,11 +97,22 @@ import { siteConfig } from "../data/site";
           </a>
         </div>
 
-        <div class="grid grid-cols-2 gap-3">
-          <img src="https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4115-433x577x49x0x352x577x1758559248.webp" alt="Training" class="rounded-2xl object-cover h-64 w-full" loading="lazy" />
-          <img src="https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4121-323x431x0x86x323x259x1758559372.webp" alt="Training" class="rounded-2xl object-cover h-64 w-full" loading="lazy" />
-          <img src="https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4126-323x431x0x86x323x259x1758560649.webp" alt="Training" class="rounded-2xl object-cover h-64 w-full" loading="lazy" />
-          <img src="https://theballplex.com/wp-content/uploads/brizy/imgs/IMG_4132-355x267x82x0x273x267x1758560807.webp" alt="Training" class="rounded-2xl object-cover h-64 w-full" loading="lazy" />
+        <div class="relative overflow-hidden rounded-2xl h-full self-stretch group/slide" id="lessons-slideshow">
+          <div class="lessons-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-100">
+            <img src="/images-lessons/d577b0a5-d7c6-4fd8-a896-b72b3d522a96 2.JPG.jpeg" alt="Training" class="h-full w-full object-cover" loading="lazy" />
+          </div>
+          <div class="lessons-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0">
+            <img src="/images-lessons/DSC00748.JPG.jpeg" alt="Training" class="h-full w-full object-cover" loading="lazy" />
+          </div>
+          <div class="lessons-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0">
+            <img src="/images-lessons/DSC00828.JPG.jpeg" alt="Training" class="h-full w-full object-cover" loading="lazy" />
+          </div>
+          <button class="slide-prev absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white opacity-0 group-hover/slide:opacity-100 transition-opacity hover:bg-white/20" aria-label="Previous">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+          </button>
+          <button class="slide-next absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white opacity-0 group-hover/slide:opacity-100 transition-opacity hover:bg-white/20" aria-label="Next">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+          </button>
         </div>
       </div>
     </div>
@@ -225,13 +236,29 @@ import { siteConfig } from "../data/site";
   <section id="strength" class="bg-brand-dark py-20 md:py-28">
     <div class="container-page">
       <div class="grid items-center gap-12 lg:grid-cols-2">
-        <div>
-          <img
-            src="https://theballplex.com/wp-content/uploads/brizy/imgs/Screenshot-2025-12-02-at-5.13.31-PM-473x588x0x126x473x441x1764713650.png"
-            alt="Strength & Conditioning"
-            class="rounded-3xl object-cover w-full"
-            loading="lazy"
-          />
+        <div class="relative overflow-hidden rounded-2xl h-full self-stretch group/slide" id="sc-slideshow">
+          <div class="sc-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-100">
+            <img
+              src="/SC/IMG_4119 2.jpg"
+              alt="Strength & Conditioning"
+              class="h-full w-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="sc-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0">
+            <img
+              src="/SC/IMG_5973.jpg"
+              alt="Strength & Conditioning"
+              class="h-full w-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <button class="slide-prev absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white opacity-0 group-hover/slide:opacity-100 transition-opacity hover:bg-white/20" aria-label="Previous">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+          </button>
+          <button class="slide-next absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white opacity-0 group-hover/slide:opacity-100 transition-opacity hover:bg-white/20" aria-label="Next">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+          </button>
         </div>
         <div>
           <p class="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
@@ -318,6 +345,33 @@ import { siteConfig } from "../data/site";
         </p>
       </div>
 
+      <div class="grid gap-6 lg:grid-cols-2 mb-10">
+        <div class="overflow-hidden rounded-2xl h-[600px]">
+          <video
+            src="https://mediumorchid-pig-468212.hostingersite.com/wp-content/uploads/2026/07/IMG_6794.mov"
+            autoplay
+            muted
+            loop
+            playsinline
+            class="w-full h-full object-cover"
+          ></video>
+        </div>
+        <div class="relative overflow-hidden rounded-2xl h-[600px] group/slide" id="rentals-slideshow">
+          <div class="rentals-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-100">
+            <img src="/rentals/IMG_5967.jpg.jpeg" alt="Cage Rental" class="h-full w-full object-cover" loading="lazy" />
+          </div>
+          <div class="rentals-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0">
+            <img src="/rentals/e13429f3-b13b-4bc5-a54a-6173978d8248.JPG.jpeg" alt="Cage Rental" class="h-full w-full object-cover" loading="lazy" />
+          </div>
+          <button class="slide-prev absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white opacity-0 group-hover/slide:opacity-100 transition-opacity hover:bg-white/20" aria-label="Previous">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+          </button>
+          <button class="slide-next absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white opacity-0 group-hover/slide:opacity-100 transition-opacity hover:bg-white/20" aria-label="Next">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+          </button>
+        </div>
+      </div>
+
       <div class="grid gap-6 lg:grid-cols-2">
         <div class="overflow-hidden rounded-xl border border-white/5">
           <table class="w-full text-left text-sm">
@@ -400,10 +454,110 @@ import { siteConfig } from "../data/site";
       </div>
 
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {coaches.map((coach) => <CoachCard coach={coach} />)}
+        {coaches.map((coach, i) => <CoachCard coach={coach} index={i} />)}
       </div>
     </div>
   </section>
 
   <CTABanner />
+
+  <div id="coach-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="coach-modal-overlay"></div>
+    <div class="relative z-10 w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl border border-white/10 bg-zinc-900 p-6 shadow-2xl transform scale-95 transition-transform duration-300" id="coach-modal-card">
+      <button id="coach-modal-close" class="absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white/60 hover:bg-white/20 hover:text-white transition-colors" aria-label="Close">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <div id="coach-modal-content"></div>
+    </div>
+  </div>
 </BaseLayout>
+
+<script>
+  function startSlideshow(containerId, slideClass) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const slides = container.querySelectorAll("." + slideClass);
+    let current = 0;
+    const total = slides.length;
+    function show(index) {
+      slides.forEach((s, i) => {
+        s.style.opacity = i === index ? "1" : "0";
+      });
+      current = index;
+    }
+    function next() {
+      show((current + 1) % total);
+    }
+    function prev() {
+      show((current - 1 + total) % total);
+    }
+    const prevBtn = container.querySelector(".slide-prev");
+    const nextBtn = container.querySelector(".slide-next");
+    if (prevBtn) prevBtn.addEventListener("click", prev);
+    if (nextBtn) nextBtn.addEventListener("click", next);
+    setInterval(next, 4000);
+    show(0);
+  }
+  startSlideshow("lessons-slideshow", "lessons-slide");
+  startSlideshow("sc-slideshow", "sc-slide");
+  startSlideshow("rentals-slideshow", "rentals-slide");
+
+  const coachesData = [
+    {name:"Leo Rojas",role:"Head of Player Development",bio:"COACH LEO is our Head of Player Development. He's in charge of leading everything related to the preparation and execution of the lessons and programs. Has extensive experience in player development and his focus is not only on developing great players but also great kids. Leo was a professional catcher for the San Francisco Giants, playing in the different Minors levels of the organization for 4 years. He also has experience as a coach for the Giants, being one of the coaches of the organization's academy in the Dominican Republic. Leo also had work experience within a player representation agency. Leo offers high level catching and hitting lessons to his players. In addition, his social media has incredible content. Follow him on @leobsbl.",specialties:"Catching, Hitting (Baseball & Softball)",quote:"Impossible dreams demand impossible work ethic, let's get to work.",image:"https://theballplex.com/wp-content/uploads/brizy/imgs/3-480x320x73x0x353x320x1759182471.jpeg",instagram:"@leobsbl"},
+    {name:"Santiago Chirino",role:"Hitting & Fielding Coach",bio:"Signed as an international free agent by the Texas Rangers in 2008, COACH CHI-CHI brings his 13 years of experience as a baseball professional player. He's one of the most recent incorporation to our crew. He's known as the Frontier League (MiLB) Hit King, since he has the hits and runs scored record in the history of the league, isn't that cool? Santiago had a 1 year experience as an MiLB player-coach and have more that 4 years coaching young players. He's got a lot of fresh coaching and player insights and is very motivated to start this new stage of his career as player development coach in Melbourne, FL. Follow Coach Santiago on his social media @santiagochirino.",specialties:"Hitting, Fielding (Baseball & Softball)",quote:"Never allow the fear of striking out keep you from playing the game. — Babe Ruth",image:"https://theballplex.com/wp-content/uploads/brizy/imgs/2-480x320x68x0x353x320x1759181406.jpeg",instagram:"@santiagochirino"},
+    {name:"Raychel Trocki",role:"Softball Pitching Coach",bio:"Coach Raychel brings a wealth of experience and passion to our coaching team. A standout player at the Florida Institute of Technology from 2019-2021, Raychel has transitioned her on-field success into a dynamic coaching career, now with six years of experience under her belt. Her dedication to developing young talent is evident, with over 10 pitchers under her guidance having secured scholarships at various levels, ranging from Junior College to Division 1. Raychel's coaching style is characterized by her deep knowledge of the game, her patience, and her genuine passion for helping young athletes grow both on and off the field. Follow Coach Raychel in Instagram: @coach.raychel.",specialties:"Pitching (Softball)",quote:"If you want it bad enough and you're willing to make the sacrifices, you can do it. But first you have to believe in yourself. — Jennie Finch",image:"https://theballplex.com/wp-content/uploads/brizy/imgs/4-478x319x62x0x354x319x1759182060.jpeg",instagram:"@coach.raychel"},
+    {name:"Kyle Huckaby",role:"Pitching Coach",bio:"Coach Kyle knows what it takes to pitch at the next level, because he's been there. A Division I arm at Eastern Michigan University (2014–2017) and record-setting closer at Benedictine University Mesa (AZ) in 2019, he signed with the Toronto Blue Jays that same year and spent the next 6 seasons on the pro mound. He's also coached at the college level as the Pitching Coach for Christian Brothers University (D2, TN) and has worked one-on-one with pitchers for over 4 years, helping them throw harder, stay healthier, and dominate hitters. Follow him on Instagram @fluid_baseball.",specialties:"Pitching (Baseball)",quote:"The best pitchers have a short term memory and a bullet proof confidence.",image:"https://theballplex.com/wp-content/uploads/brizy/imgs/6-445x296x46x0x353x296x1759182173.jpeg",instagram:"@fluid_baseball"},
+    {name:"Tristen Carranza",role:"Hitting & Fielding Coach",bio:"Originally from El Centro, CA, moved to Brevard County after finishing his 4th professional season. Son of former Colorado Rockies, Pedro Carranza, COACH TRISTEN comes from a baseball family originally from Mexico. While in High School he was Drafted in the Mexican Winter League by the Aguilas de Mexicali and was offered to sign as a Free Agent with the Chicago Cubs in 2015 but decided to pursue his education. After his collegiate career came to an end he signed a free agent contract with the Arizona Diamondbacks where he was named a Pioneer League All-Star in 2019. He currently works in the New York Mets minor league system and is eager to help the next generation of players.",specialties:"Hitting, Fielding (Baseball & Softball)",quote:"A teacher is never a giver of truth, he is a guide, a pointer to the truth that each student must find for himself. A good teacher is merely a catalyst.",image:"https://theballplex.com/wp-content/uploads/brizy/imgs/Screen-Shot-2024-09-06-at-11.25.51-AM-353x372x0x0x353x296x1725636374.png",instagram:""},
+    {name:"José Bermúdez",role:"Private Coach",bio:"Coach José was signed by the Atlanta Braves organization in 2016 and played professional ball for over six years. After his playing career, he dedicated himself to youth player development and has been coaching for the past four years, working with private clients and travel teams. He is passionate about discipline, hard work and helping players unlock their full potential.",specialties:"Hitting, Fielding (Baseball & Softball)",quote:"Talent may get you out on the field, but it's attitude and effort that will keep you there. — Ken Griffey Jr.",image:"https://theballplex.com/wp-content/uploads/brizy/imgs/1-446x297x51x0x354x297x1759181286.jpeg",instagram:""},
+    {name:"Melissa Martínez",role:"Softball Hitting Coach",bio:"COACH MELISSA played 4 years as a D1 softball player at Florida Atlantic University. She was an assistant coach for a summer ball travel team in 2017 and has been giving private softball lessons since 2020. She focuses in all-game aspects, specially in hitting and infield defense. She speaks both english and spanish. Follow Coach Melissa on her social media @xmelissaamartinez.",specialties:"Hitting, Fielding (Softball)",quote:"A true champion is someone who wants to make a difference, who never gives up, and who gives everything she has no matter what the circumstances are. — Dot Richardson",image:"https://theballplex.com/wp-content/uploads/brizy/imgs/5-431x287x43x0x353x287x1759182302.jpeg",instagram:"@xmelissaamartinez"},
+    {name:"Austin Dennis",role:"Hitting & Fielding Coach",bio:"Our guy from Rockledge, FL. COACH AUSTIN has been working with kids development since 2020, focusing on hitting, pitching and defense. He played OF, IF and pitched at Middle Tennessee State University. He was drafted in 2018 by the Houston Astros, played AAA for the organization and also AA for the KC Royals. He's currently playing Independent ball. Follow Coach Austin on his social media @austindennis2.",specialties:"Hitting, Fielding (Baseball)",quote:"Every strike brings me closer to the next home run. — Yogi Berra",image:"https://theballplex.com/wp-content/uploads/brizy/imgs/Screen-Shot-2024-05-02-at-6.00.35-PM-353x359x0x0x353x287x1714687262.png",instagram:"@austindennis2"},
+    {name:"Jamie Gilbert",role:"Pitching Coach (Softball)",bio:"Former Division I pitcher at the University of Texas at San Antonio, where she accumulated more than 370 collegiate innings in the circle. Jamie brings extensive experience in pitcher development, helping athletes improve mechanics, command, velocity, and overall confidence on the mound. Her approach combines high-level playing experience with individualized instruction designed to help pitchers compete at their highest level.",specialties:"Pitching (Softball)",quote:"",image:"/COACHES/JAMIE.jpeg",instagram:""},
+    {name:"Gianmarco Marcelletti",role:"Strength & Conditioning Coach",bio:"Former college baseball player with ISSA certifications and over 5 years of experience training athletes, including college and MLB players.",specialties:"Strength & Conditioning",quote:"",image:"",instagram:""},
+    {name:"Rylan Thomas",role:"Hitting Coach (Baseball & Softball)",bio:"Former Division I standout at University of Central Florida and professional player in the Cincinnati Reds system after being selected in the 2018 MLB Draft. Rylan was recognized as one of the top hitters in college baseball, earning All-Conference honors while setting multiple offensive records at UCF. He specializes in swing development, approach, power production, and helping hitters maximize their performance at the plate.",specialties:"Hitting (Baseball & Softball)",quote:"",image:"/COACHES/Rylan.jpeg",instagram:""},
+    {name:"Taylor Jensen",role:"",bio:"",specialties:"",quote:"",image:"/COACHES/Taylor Jensen.jpeg",instagram:"",objectPosition:"50% 30%"}
+  ];
+
+  const modal = document.getElementById("coach-modal");
+  const modalContent = document.getElementById("coach-modal-content");
+  const modalCard = document.getElementById("coach-modal-card");
+  const modalClose = document.getElementById("coach-modal-close");
+  const modalOverlay = document.getElementById("coach-modal-overlay");
+
+  function openModal(coach) {
+    modalContent.innerHTML = `
+      ${coach.image ? `<div class="relative overflow-hidden rounded-xl mb-5 aspect-[4/5]"><img src="${coach.image}" alt="${coach.name}" class="h-full w-full object-cover"${coach.objectPosition ? ` style="object-position: ${coach.objectPosition}"` : ""} /></div>` : ''}
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-teal mb-1">${coach.role}</p>
+      <h2 class="text-2xl font-bold text-white mb-3">${coach.name}</h2>
+      <p class="text-sm text-brand-gray leading-relaxed mb-4">${coach.bio}</p>
+      <div class="flex flex-wrap gap-1.5 mb-4">
+        ${coach.specialties.split(", ").map(s => `<span class="rounded-full border border-brand-teal/20 bg-brand-teal/5 px-2.5 py-0.5 text-[11px] text-brand-teal">${s}</span>`).join("")}
+      </div>
+      ${coach.quote ? `<div class="border-l-2 border-brand-teal pl-4 mb-4"><p class="text-sm italic text-white/70">&ldquo;${coach.quote}&rdquo;</p></div>` : ''}
+      ${coach.instagram ? `<a href="https://instagram.com/${coach.instagram.replace('@','')}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg bg-white/5 px-4 py-2 text-sm text-white/70 hover:bg-white/10 hover:text-white transition-colors"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>${coach.instagram}</a>` : ''}
+    `;
+    modal.classList.remove("pointer-events-none");
+    modal.classList.add("opacity-100");
+    modalCard.classList.remove("scale-95");
+    modalCard.classList.add("scale-100");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    modal.classList.add("pointer-events-none");
+    modal.classList.remove("opacity-100");
+    modalCard.classList.add("scale-95");
+    modalCard.classList.remove("scale-100");
+    document.body.style.overflow = "";
+  }
+
+  modalClose.addEventListener("click", closeModal);
+  modalOverlay.addEventListener("click", closeModal);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+
+  document.querySelectorAll(".coach-card").forEach(card => {
+    card.addEventListener("click", function() {
+      const idx = parseInt(this.getAttribute("data-coach-index"));
+      if (coachesData[idx]) openModal(coachesData[idx]);
+    });
+  });
+</script>
