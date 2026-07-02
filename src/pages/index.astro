@@ -101,6 +101,21 @@ const galleryImages = [
       </div>
 
       <div class="grid auto-rows-[200px] grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 md:auto-rows-[260px] md:grid-cols-4">
+        {galleryImages.map((img, i) => (
+          <div
+            class={`img-zoom ${img.span}`}
+            data-reveal="scale"
+            data-delay={String(i * 80)}
+          >
+            <img
+              src={img.src}
+              alt={img.alt}
+              class="h-full w-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
