@@ -94,7 +94,7 @@ export const coaches: Coach[] = [
   {
     name: "Gianmarco Marcelletti",
     role: "Strength & Conditioning Coach",
-    bio: "Former college baseball player with ISSA certifications and over 5 years of experience training athletes, including college and MLB players.",
+    bio: "Former college baseball player with ISSA certifications and over 5 years of experience training athletes, including college and MLB players. ",
     specialties: "Strength & Conditioning",
     quote: "",
     image: "/COACHES/Gianmarco.jpeg",
