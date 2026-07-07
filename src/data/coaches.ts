@@ -97,7 +97,7 @@ export const coaches: Coach[] = [
     bio: "Former college baseball player with ISSA certifications and over 5 years of experience training athletes, including college and MLB players.",
     specialties: "Strength & Conditioning",
     quote: "",
-    image: "",
+    image: "/COACHES/Gianmarco.jpeg",
     instagram: "",
   },
   {
