@@ -24,15 +24,14 @@ const { title, description, image } = Astro.props;
       <slot />
     </main>
     <Footer />
+    <script>
+      import { initRevealAnimations, initCounters, initParallax } from "../scripts/animations";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        initRevealAnimations();
+        initCounters();
+        initParallax();
+      });
+    </script>
   </body>
 </html>
-
-<script>
-  import { initRevealAnimations, initCounters, initParallax } from "../scripts/animations";
-
-  document.addEventListener("DOMContentLoaded", () => {
-    initRevealAnimations();
-    initCounters();
-    initParallax();
-  });
-</script>

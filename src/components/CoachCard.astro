@@ -5,7 +5,7 @@ const { coach, index } = Astro.props;
 ---
 
 <div class="coach-card group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/30 hover:border-brand-teal/30 cursor-pointer" data-coach-index={index}>
-  <div class="aspect-[4/3] overflow-hidden">
+  <div class="aspect-[4/3] relative overflow-hidden">
     {coach.image ? (
       <>
         <img
