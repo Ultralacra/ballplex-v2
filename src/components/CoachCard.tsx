@@ -1,0 +1,68 @@
+"use client";
+
+import type { Coach } from "@/data/coaches";
+import Image from "next/image";
+
+interface Props {
+  coach: Coach;
+  index: number;
+  onSelect?: (coach: Coach) => void;
+}
+
+export default function CoachCard({ coach, index, onSelect }: Props) {
+  return (
+    <div
+      className="coach-card group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/30 hover:border-brand-teal/30 cursor-pointer"
+      data-coach-index={index}
+      onClick={() => onSelect?.(coach)}
+    >
+      <div className="aspect-[4/3] relative overflow-hidden">
+        {coach.image ? (
+          <>
+            <img
+              src={coach.image}
+              alt={coach.name}
+              className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+              loading="lazy"
+              style={coach.objectPosition ? { objectPosition: coach.objectPosition } : undefined}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+            {coach.quote && (
+              <div className="absolute inset-0 flex items-end p-6 opacity-0 transition-all duration-500 group-hover:opacity-100">
+                <p className="text-sm italic leading-relaxed text-white/90">
+                  &ldquo;{coach.quote}&rdquo;
+                </p>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="flex h-full items-center justify-center bg-gradient-to-b from-white/5 to-transparent">
+            {coach.quote && (
+              <div className="p-6 opacity-0 transition-all duration-500 group-hover:opacity-100">
+                <p className="text-sm italic leading-relaxed text-white/90 text-center">
+                  &ldquo;{coach.quote}&rdquo;
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      <div className="p-6">
+        <h3 className="text-lg font-semibold text-white transition-colors duration-300 group-hover:text-brand-teal">
+          {coach.name}
+        </h3>
+        <p className="mt-1 text-sm font-medium text-brand-teal">{coach.role}</p>
+        <div className="mt-4 flex flex-wrap gap-1.5">
+          {coach.specialties.split(", ").map((s) => (
+            <span
+              key={s}
+              className="rounded-full border border-white/10 px-2.5 py-0.5 text-[11px] text-zinc-400 transition-colors duration-300 group-hover:border-brand-teal/30 group-hover:text-zinc-300"
+            >
+              {s}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
