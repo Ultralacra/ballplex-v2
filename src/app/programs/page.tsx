@@ -62,7 +62,6 @@ export default function ProgramsPage() {
                 our coaches are here to help you get there. HitTrax and Rapsodo technology are available for detailed
                 performance tracking.
               </p>
-
               <div className="mt-8 grid gap-4 sm:grid-cols-2">
                 <div className="rounded-xl border border-white/5 bg-white/[0.03] p-4">
                   <h4 className="font-semibold text-white">Hitting</h4>
@@ -80,6 +79,17 @@ export default function ProgramsPage() {
                   <h4 className="font-semibold text-white">Fielding</h4>
                   <p className="mt-1 text-sm text-brand-gray">Footwork, glove work, arm strength</p>
                 </div>
+              </div>
+
+              <div className="mt-8 rounded-xl border border-brand-teal/20 bg-brand-teal/[0.05] p-6">
+                <h4 className="font-semibold text-white flex items-center gap-2">
+                  Rapsodo Pro 2.0 — Powered by Data
+                </h4>
+                <p className="mt-2 text-brand-gray leading-relaxed">
+                  See what the numbers say. Rapsodo Pro 2.0 provides detailed hitting and pitching metrics that help our
+                  certified coaches identify strengths, areas for improvement, and build a plan based on objective data.
+                  Book your session today.
+                </p>
               </div>
 
               <div className="mt-8 overflow-hidden rounded-xl border border-white/5">
