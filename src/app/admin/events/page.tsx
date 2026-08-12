@@ -51,6 +51,7 @@ type EventItem = {
   age_group: string | null;
   location: string | null;
   image_url: string | null;
+  official_url: string | null;
   highlights: string[] | null;
   category_id: string | null;
   featured: boolean;
@@ -58,6 +59,25 @@ type EventItem = {
   event_categories?: Category;
 };
 type EventForm = Omit<EventItem, "id" | "event_categories">;
+
+function sortEventsUpcomingFirst(items: EventItem[]) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const todayTimestamp = today.getTime();
+
+  return [...items].sort((a, b) => {
+    const dateA = a.date ? Date.parse(a.date) : Number.NaN;
+    const dateB = b.date ? Date.parse(b.date) : Number.NaN;
+    const hasDateA = Number.isFinite(dateA);
+    const hasDateB = Number.isFinite(dateB);
+    const upcomingA = hasDateA && dateA >= todayTimestamp;
+    const upcomingB = hasDateB && dateB >= todayTimestamp;
+
+    if (upcomingA !== upcomingB) return upcomingA ? -1 : 1;
+    if (!hasDateA || !hasDateB) return hasDateA ? -1 : hasDateB ? 1 : 0;
+    return dateA - dateB;
+  });
+}
 
 const emptyForm: EventForm = {
   title: "",
@@ -70,6 +90,7 @@ const emptyForm: EventForm = {
   age_group: "",
   location: "",
   image_url: "",
+  official_url: "",
   highlights: [],
   category_id: "",
   featured: false,
@@ -116,13 +137,14 @@ export default function EventsAdminPage() {
   }, [load]);
   const filtered = useMemo(() => {
     const value = query.toLowerCase().trim();
-    return value
+    const matching = value
       ? events.filter((item) =>
           `${item.title} ${item.slug} ${item.location || ""}`
             .toLowerCase()
             .includes(value),
         )
       : events;
+    return sortEventsUpcomingFirst(matching);
   }, [events, query]);
   const setField = (
     field: keyof EventForm,
@@ -146,6 +168,7 @@ export default function EventsAdminPage() {
       age_group: item.age_group || "",
       location: item.location || "",
       image_url: item.image_url || "",
+      official_url: item.official_url || "",
       highlights: item.highlights || [],
       category_id: item.category_id || "",
       featured: item.featured,
@@ -288,13 +311,23 @@ export default function EventsAdminPage() {
                   </Typography>
                 )}
               </Box>
-              <Box sx={{ flex: 1, minWidth: 230 }}>
+              <Box sx={{ flex: 1, minWidth: 0 }}>
                 <Typography variant="h6">{item.title}</Typography>
                 <Typography variant="body2" color="text.secondary">
                   {item.event_categories?.name || "Sin categoría"} ·{" "}
                   {item.date || "Sin fecha"}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" noWrap>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{
+                    display: "-webkit-box",
+                    WebkitBoxOrient: "vertical",
+                    WebkitLineClamp: 3,
+                    overflow: "hidden",
+                    overflowWrap: "anywhere",
+                  }}
+                >
                   {item.short_description ||
                     item.description ||
                     "Sin descripción"}
@@ -417,6 +450,15 @@ export default function EventsAdminPage() {
               fullWidth
               value={form.location || ""}
               onChange={(e) => setField("location", e.target.value)}
+            />
+            <TextField
+              label="Página oficial del evento"
+              type="url"
+              fullWidth
+              value={form.official_url || ""}
+              onChange={(e) => setField("official_url", e.target.value)}
+              placeholder="https://example.com/event"
+              helperText="Enlace que se abrirá al pulsar el botón del evento."
             />
             <TextField
               label="Descripción corta"

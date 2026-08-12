@@ -73,6 +73,7 @@ CREATE TABLE events (
   age_group TEXT,
   location TEXT,
   image_url TEXT,
+  official_url TEXT,
   highlights TEXT[] DEFAULT '{}',
   category_id UUID REFERENCES event_categories(id) ON DELETE SET NULL,
   featured BOOLEAN DEFAULT false,

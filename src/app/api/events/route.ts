@@ -5,7 +5,7 @@ export async function GET() {
   const { data, error } = await supabaseAdmin
     .from("events")
     .select("*, event_categories(*)")
-    .order("date", { ascending: true });
+    .order("date", { ascending: true, nullsFirst: false });
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -33,6 +33,7 @@ export async function POST(request: Request) {
       age_group: body.age_group?.trim() || "",
       location: body.location?.trim() || "",
       image_url: body.image_url?.trim() || "",
+      official_url: body.official_url?.trim() || "",
       highlights: Array.isArray(body.highlights) ? body.highlights : [],
       category_id: body.category_id || null,
       featured: Boolean(body.featured),

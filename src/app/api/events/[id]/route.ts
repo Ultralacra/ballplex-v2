@@ -25,6 +25,7 @@ export async function PATCH(
       age_group: body.age_group?.trim() || "",
       location: body.location?.trim() || "",
       image_url: body.image_url?.trim() || "",
+      official_url: body.official_url?.trim() || "",
       highlights: Array.isArray(body.highlights) ? body.highlights : [],
       category_id: body.category_id || null,
       featured: Boolean(body.featured),
