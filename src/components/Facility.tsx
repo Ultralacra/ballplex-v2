@@ -9,7 +9,9 @@ export default function Facility({
   subtitle,
   features,
   images,
+  eyebrow,
 }: {
+  eyebrow?: string;
   title?: string;
   subtitle?: string;
   features?: Feature[];
@@ -39,7 +41,7 @@ export default function Facility({
       <div className="container-page relative z-10">
         <div className="mb-16 text-center" data-reveal>
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
-            Our Facility
+            {eyebrow || "Our Facility"}
           </p>
           <h2 className="section-heading mt-4 text-white">{ttl}</h2>
           <p className="section-subtitle mx-auto text-zinc-400">{sub}</p>
@@ -72,11 +74,11 @@ export default function Facility({
           data-delay="400"
         >
           {facilityImages.slice(0, 2).map((image) => (
-            <div className="img-zoom" key={image.src}>
+            <div className="overflow-hidden rounded-2xl" key={image.src}>
               <img
                 src={image.src}
                 alt={image.alt}
-                className="h-64 w-full object-cover sm:h-96"
+                className="block h-auto w-full"
                 loading="lazy"
               />
             </div>

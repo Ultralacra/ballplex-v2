@@ -60,7 +60,7 @@ export default async function EventsPage() {
         <div className="container-page">
           <div className="mb-14 text-center" data-reveal>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
-              Camps & Events
+              {allEventsGrid.eyebrow || "Camps & Events"}
             </p>
             <h2 className="section-heading">
               {allEventsGrid.title || "Upcoming Schedule"}

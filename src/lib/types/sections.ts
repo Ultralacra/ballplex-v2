@@ -86,6 +86,8 @@ export interface StatsProps {
 }
 
 export interface FacilityProps {
+  eyebrow?: string;
+  galleryEyebrow?: string;
   title: string;
   subtitle: string;
   features: FacilityFeature[];
@@ -100,21 +102,25 @@ export interface CTABannerProps {
 }
 
 export interface ProgramsGridProps {
+  eyebrow?: string;
   title: string;
   subtitle: string;
 }
 
 export interface CoachesGridProps {
+  eyebrow?: string;
   title: string;
   subtitle: string;
 }
 
 export interface EventsGridProps {
+  eyebrow?: string;
   title: string;
   subtitle: string;
 }
 
 export interface TestimonialsGridProps {
+  eyebrow?: string;
   title: string;
   subtitle: string;
 }
@@ -135,6 +141,7 @@ export interface PricingTableProps {
 }
 
 export interface ScheduleTableProps {
+  eyebrow?: string;
   title: string;
   subtitle?: string;
   anchor?: string;
@@ -142,11 +149,13 @@ export interface ScheduleTableProps {
 }
 
 export interface GalleryProps {
+  eyebrow?: string;
   title: string;
   images: string[];
 }
 
 export interface ContactInfoProps {
+  eyebrow?: string;
   phone: string;
   email: string;
   addresses: ContactAddress[];
@@ -178,6 +187,7 @@ export interface RichTextProps {
 }
 
 export interface EventCategoriesGridProps {
+  eyebrow?: string;
   title: string;
   subtitle: string;
 }

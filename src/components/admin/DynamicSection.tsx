@@ -207,6 +207,7 @@ function DynamicFacility({
 
   return (
     <Facility
+      eyebrow={overrideProps.eyebrow}
       title={title}
       subtitle={subtitle}
       features={feat}
@@ -254,6 +255,7 @@ function CTASection(p: SectionPropsMap["cta_banner"]) {
 // ====== TABLE-DRIVEN SECTIONS (fetch real data from programs/coaches/events/testimonials) ======
 
 function ProgramsGridSection({
+  eyebrow,
   title,
   subtitle,
 }: SectionPropsMap["programs_grid"]) {
@@ -284,7 +286,7 @@ function ProgramsGridSection({
       <div className="container-page">
         <div className="mb-16 text-center" data-reveal>
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
-            Services
+            {eyebrow || "Services"}
           </p>
           <h2 className="section-heading">
             {title || "Built for Athletes Development"}
@@ -306,6 +308,7 @@ function ProgramsGridSection({
 }
 
 function CoachesGridSection({
+  eyebrow,
   title,
   subtitle,
 }: SectionPropsMap["coaches_grid"]) {
@@ -323,7 +326,7 @@ function CoachesGridSection({
       <div className="container-page">
         <div className="mb-16 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
-            Coaching Staff
+            {eyebrow || "Coaching Staff"}
           </p>
           <h2 className="section-heading">
             {title || "Led by Pros. Built for Development."}
@@ -358,6 +361,7 @@ function CoachesGridSection({
 }
 
 function EventsGridSection({
+  eyebrow,
   title,
   subtitle,
 }: SectionPropsMap["events_grid"]) {
@@ -375,7 +379,7 @@ function EventsGridSection({
       <div className="container-page">
         <div className="mb-14 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
-            Events
+            {eyebrow || "Events"}
           </p>
           <h2 className="section-heading">{title || "Upcoming Schedule"}</h2>
           <p className="section-subtitle mx-auto">{subtitle || ""}</p>
@@ -391,6 +395,7 @@ function EventsGridSection({
 }
 
 function TestimonialsGridSection({
+  eyebrow,
   title,
   subtitle,
 }: SectionPropsMap["testimonials_grid"]) {
@@ -410,7 +415,7 @@ function TestimonialsGridSection({
       <div className="container-page">
         <div className="mb-16 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
-            Testimonials
+            {eyebrow || "Testimonials"}
           </p>
           <h2 className="section-heading">{title || "What Families Say"}</h2>
           <p className="section-subtitle mx-auto">{subtitle || ""}</p>
@@ -437,6 +442,7 @@ function TestimonialsGridSection({
 // ====== STATIC PREVIEW SECTIONS (use page_sections.props) ======
 
 function EventCategoriesGridSection({
+  eyebrow,
   title,
   subtitle,
 }: SectionPropsMap["event_categories_grid"]) {
@@ -446,7 +452,7 @@ function EventCategoriesGridSection({
       <div className="container-page relative z-10">
         <div className="mb-14 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
-            Browse by Category
+            {eyebrow || "Browse by Category"}
           </p>
           <h2 className="section-heading">{title || "Find the Right Event"}</h2>
           <p className="section-subtitle mx-auto">
@@ -481,6 +487,7 @@ function EventCategoriesGridSection({
 }
 
 function PricingTableSection({
+  eyebrow,
   title,
   subtitle,
   description,
@@ -492,7 +499,7 @@ function PricingTableSection({
       <div className="container-page">
         <div className="text-center mb-12">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
-            Pricing
+            {eyebrow || "Pricing"}
           </p>
           <h2 className="section-heading">{title || "Pricing"}</h2>
           <p className="section-subtitle mx-auto mt-2">{subtitle || ""}</p>
@@ -515,11 +522,20 @@ function PricingTableSection({
   );
 }
 
-function ScheduleSection({ title, items }: SectionPropsMap["schedule_table"]) {
+function ScheduleSection({
+  eyebrow,
+  title,
+  items,
+}: SectionPropsMap["schedule_table"]) {
   const i = Array.isArray(items) ? items : [];
   return (
     <section className="py-12 bg-brand-black">
       <div className="container-page">
+        {eyebrow && (
+          <p className="mb-2 text-center text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
+            {eyebrow}
+          </p>
+        )}
         <h3 className="text-xl font-bold text-white text-center mb-6">
           {title || "Schedule"}
         </h3>
@@ -539,11 +555,20 @@ function ScheduleSection({ title, items }: SectionPropsMap["schedule_table"]) {
   );
 }
 
-function GallerySection({ title, images }: SectionPropsMap["gallery"]) {
+function GallerySection({
+  eyebrow,
+  title,
+  images,
+}: SectionPropsMap["gallery"]) {
   const imgs = Array.isArray(images) ? images : [];
   return (
     <section className="py-16 bg-zinc-950">
       <div className="container-page">
+        {eyebrow && (
+          <p className="mb-2 text-center text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
+            {eyebrow}
+          </p>
+        )}
         <h2 className="section-heading text-center mb-8">
           {title || "Gallery"}
         </h2>

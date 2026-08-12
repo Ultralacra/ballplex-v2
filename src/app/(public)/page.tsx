@@ -150,6 +150,8 @@ export default async function HomePage() {
     | undefined;
   const facilityProps = sectionMap["facility"]?.props as
     | {
+        eyebrow?: string;
+        galleryEyebrow?: string;
         title?: string;
         subtitle?: string;
         features?: Array<{ icon: string; title: string; description: string }>;
@@ -182,7 +184,8 @@ export default async function HomePage() {
         <div className="container-page">
           <div className="mb-16 text-center" data-reveal>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
-              Services
+              {(sectionMap["programs_grid"]?.props as Record<string, string>)
+                ?.eyebrow || "Services"}
             </p>
             <h2 className="section-heading">
               {(sectionMap["programs_grid"]?.props as Record<string, string>)
@@ -209,6 +212,7 @@ export default async function HomePage() {
       </section>
 
       <Facility
+        eyebrow={facilityProps?.eyebrow}
         title={facilityProps?.title}
         subtitle={facilityProps?.subtitle}
         features={facilityProps?.features}
@@ -220,7 +224,7 @@ export default async function HomePage() {
         <div className="container-page relative z-10">
           <div className="mb-16 text-center" data-reveal>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
-              Inside Ballplex
+              {facilityProps?.galleryEyebrow || "Inside Ballplex"}
             </p>
             <h2 className="section-heading">See our facilities</h2>
             <p className="section-subtitle mx-auto mt-5">
@@ -254,7 +258,8 @@ export default async function HomePage() {
         <div className="container-page relative z-10">
           <div className="mb-16 text-center" data-reveal>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
-              Coaching Staff
+              {(sectionMap["coaches_grid"]?.props as Record<string, string>)
+                ?.eyebrow || "Coaching Staff"}
             </p>
             <h2 className="section-heading">
               Led by Pros. Built for Development.
@@ -289,7 +294,9 @@ export default async function HomePage() {
         <div className="container-page">
           <div className="mb-16 text-center" data-reveal>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
-              Testimonials
+              {(
+                sectionMap["testimonials_grid"]?.props as Record<string, string>
+              )?.eyebrow || "Testimonials"}
             </p>
             <h2 className="section-heading">What Families Say</h2>
             <p className="section-subtitle mx-auto mt-5">

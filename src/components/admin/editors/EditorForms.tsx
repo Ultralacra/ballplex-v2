@@ -764,6 +764,17 @@ function ImagesListEditor({ value, onChange }: FieldProps<string[]>) {
 export function EditorForm({ type, props, onChange }: EditorFormProps) {
   const P = (key: string, defaultValue?: unknown) =>
     props[key] !== undefined ? props[key] : defaultValue;
+  const eyebrowDefaults: Partial<Record<SectionType, string>> = {
+    facility: "Our Facility",
+    programs_grid: "Services",
+    coaches_grid: "Coaching Staff",
+    events_grid: "Events",
+    testimonials_grid: "Testimonials",
+    event_categories_grid: "Browse by Category",
+    pricing_table: "Pricing",
+    gallery: "Inside Ballplex",
+    contact_info: "Contact",
+  };
 
   switch (type) {
     case "hero":
@@ -791,7 +802,7 @@ export function EditorForm({ type, props, onChange }: EditorFormProps) {
             size="small"
           />
           <Text
-            label="Location"
+            label="Eyebrow / Small heading"
             value={P("location", "") as string}
             onChange={(v) => onChange({ ...props, location: v })}
           />
@@ -831,6 +842,16 @@ export function EditorForm({ type, props, onChange }: EditorFormProps) {
     case "facility":
       return (
         <Stack spacing={2}>
+          <Text
+            label="Eyebrow / Small heading"
+            value={P("eyebrow", eyebrowDefaults.facility) as string}
+            onChange={(v) => onChange({ ...props, eyebrow: v })}
+          />
+          <Text
+            label="Home gallery eyebrow"
+            value={P("galleryEyebrow", eyebrowDefaults.gallery) as string}
+            onChange={(v) => onChange({ ...props, galleryEyebrow: v })}
+          />
           <Text
             label="Title"
             value={P("title", "") as string}
@@ -908,6 +929,11 @@ export function EditorForm({ type, props, onChange }: EditorFormProps) {
       return (
         <Stack spacing={2}>
           <Text
+            label="Eyebrow / Small heading"
+            value={P("eyebrow", eyebrowDefaults[type] || "") as string}
+            onChange={(v) => onChange({ ...props, eyebrow: v })}
+          />
+          <Text
             label="Title"
             value={P("title", "") as string}
             onChange={(v) => onChange({ ...props, title: v })}
@@ -932,8 +958,8 @@ export function EditorForm({ type, props, onChange }: EditorFormProps) {
             onChange={(v) => onChange({ ...props, anchor: v })}
           />
           <Text
-            label="Eyebrow"
-            value={P("eyebrow", "") as string}
+            label="Eyebrow / Small heading"
+            value={P("eyebrow", eyebrowDefaults.pricing_table) as string}
             onChange={(v) => onChange({ ...props, eyebrow: v })}
           />
           <Text
@@ -1026,6 +1052,11 @@ export function EditorForm({ type, props, onChange }: EditorFormProps) {
       return (
         <Stack spacing={2}>
           <Text
+            label="Eyebrow / Small heading"
+            value={P("eyebrow", "") as string}
+            onChange={(v) => onChange({ ...props, eyebrow: v })}
+          />
+          <Text
             label="Anchor"
             value={P("anchor", "") as string}
             onChange={(v) => onChange({ ...props, anchor: v })}
@@ -1051,6 +1082,11 @@ export function EditorForm({ type, props, onChange }: EditorFormProps) {
       return (
         <Stack spacing={2}>
           <Text
+            label="Eyebrow / Small heading"
+            value={P("eyebrow", eyebrowDefaults.gallery) as string}
+            onChange={(v) => onChange({ ...props, eyebrow: v })}
+          />
+          <Text
             label="Title"
             value={P("title", "") as string}
             onChange={(v) => onChange({ ...props, title: v })}
@@ -1065,6 +1101,11 @@ export function EditorForm({ type, props, onChange }: EditorFormProps) {
     case "contact_info":
       return (
         <Stack spacing={2}>
+          <Text
+            label="Eyebrow / Small heading"
+            value={P("eyebrow", eyebrowDefaults.contact_info) as string}
+            onChange={(v) => onChange({ ...props, eyebrow: v })}
+          />
           <Text
             label="Phone"
             value={P("phone", "") as string}

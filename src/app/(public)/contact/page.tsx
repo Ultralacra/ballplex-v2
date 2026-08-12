@@ -34,7 +34,7 @@ export default async function ContactPage() {
         <div className="container-page">
           <div className="text-center" data-reveal>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
-              Contact
+              {info.eyebrow || "Contact"}
             </p>
             <h1 className="section-heading">Get in Touch</h1>
             <p className="section-subtitle mx-auto">
