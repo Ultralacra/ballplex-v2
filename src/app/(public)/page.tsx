@@ -11,44 +11,6 @@ import { coaches as fallbackCoaches } from "@/data/coaches";
 import { testimonials as fallbackTestimonials } from "@/data/testimonials";
 import { siteConfig as fallbackConfig } from "@/data/site";
 
-const galleryImages = [
-  {
-    src: "/images-lessons/d577b0a5-d7c6-4fd8-a896-b72b3d522a96 2.JPG.jpeg",
-    alt: "Ballplex Training",
-    span: "col-span-1 row-span-2 sm:col-span-2 sm:row-span-2",
-  },
-  {
-    src: "/images-lessons/DSC00748.JPG.jpeg",
-    alt: "Ballplex Training",
-    span: "col-span-1 row-span-1 sm:col-span-1",
-  },
-  {
-    src: "/images-lessons/DSC00828.JPG.jpeg",
-    alt: "Ballplex Training",
-    span: "col-span-1 row-span-1 sm:col-span-1",
-  },
-  {
-    src: "/SC/IMG_4119 2.jpg",
-    alt: "Ballplex Strength & Conditioning",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "/SC/IMG_5973.jpg",
-    alt: "Ballplex Strength & Conditioning",
-    span: "col-span-2 sm:col-span-2",
-  },
-  {
-    src: "/rentals/IMG_5967.jpg.jpeg",
-    alt: "Ballplex Cage Rentals",
-    span: "col-span-1",
-  },
-  {
-    src: "/rentals/e13429f3-b13b-4bc5-a54a-6173978d8248.JPG.jpeg",
-    alt: "Ballplex Cage Rentals",
-    span: "col-span-1",
-  },
-];
-
 async function getSections() {
   try {
     const supabase = await createClient();
@@ -158,6 +120,23 @@ export default async function HomePage() {
         images?: string[];
       }
     | undefined;
+  const galleryProps = sectionMap["gallery"]?.props as
+    | { eyebrow?: string; title?: string; images?: string[] }
+    | undefined;
+  const galleryLayouts = [
+    "col-span-1 row-span-2 sm:col-span-2 sm:row-span-2",
+    "col-span-1 row-span-1 sm:col-span-1",
+    "col-span-1 row-span-1 sm:col-span-1",
+    "col-span-1 row-span-1",
+    "col-span-1 row-span-1",
+  ];
+  const galleryImages = Array.isArray(galleryProps?.images)
+    ? galleryProps.images.filter(Boolean).map((src, index) => ({
+        src,
+        alt: "Ballplex Facility",
+        span: galleryLayouts[index] || "col-span-1",
+      }))
+    : [];
   const ctaProps = sectionMap["cta_banner"]?.props as
     | {
         title?: string;
@@ -224,9 +203,13 @@ export default async function HomePage() {
         <div className="container-page relative z-10">
           <div className="mb-16 text-center" data-reveal>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
-              {facilityProps?.galleryEyebrow || "Inside Ballplex"}
+              {galleryProps?.eyebrow ||
+                facilityProps?.galleryEyebrow ||
+                "Inside Ballplex"}
             </p>
-            <h2 className="section-heading">See our facilities</h2>
+            <h2 className="section-heading">
+              {galleryProps?.title || "See our facilities"}
+            </h2>
             <p className="section-subtitle mx-auto mt-5">
               10,500 sqft dedicated for player development. 6,000 sqft available
               for cage rentals.
