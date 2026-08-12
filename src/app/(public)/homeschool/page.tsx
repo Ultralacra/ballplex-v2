@@ -349,7 +349,7 @@ export default function HomeschoolPage() {
                     onChange={(event) =>
                       updateForm("athleteGender", event.target.value)
                     }
-                    className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/60 focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/20"
+                    className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/20"
                   >
                     <option value="">Select</option>
                     <option value="male">Male</option>
@@ -371,7 +371,7 @@ export default function HomeschoolPage() {
                     onChange={(event) =>
                       updateForm("sport", event.target.value)
                     }
-                    className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/60 focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/20"
+                    className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/20"
                   >
                     <option value="">Select</option>
                     <option value="Softball">Softball</option>

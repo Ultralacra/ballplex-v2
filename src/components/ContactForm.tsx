@@ -34,7 +34,10 @@ export default function ContactForm() {
     >
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="mb-2 block text-sm font-medium text-white/60">
+          <label
+            htmlFor="name"
+            className="mb-2 block text-sm font-medium text-white/60"
+          >
             Name
           </label>
           <input
@@ -47,7 +50,10 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="email" className="mb-2 block text-sm font-medium text-white/60">
+          <label
+            htmlFor="email"
+            className="mb-2 block text-sm font-medium text-white/60"
+          >
             Email
           </label>
           <input
@@ -61,7 +67,10 @@ export default function ContactForm() {
         </div>
       </div>
       <div className="mt-6">
-        <label htmlFor="phone" className="mb-2 block text-sm font-medium text-white/60">
+        <label
+          htmlFor="phone"
+          className="mb-2 block text-sm font-medium text-white/60"
+        >
           Phone (optional)
         </label>
         <input
@@ -73,13 +82,16 @@ export default function ContactForm() {
         />
       </div>
       <div className="mt-6">
-        <label htmlFor="interest" className="mb-2 block text-sm font-medium text-white/60">
+        <label
+          htmlFor="interest"
+          className="mb-2 block text-sm font-medium text-white/60"
+        >
           I&apos;m interested in
         </label>
         <select
           id="interest"
           name="interest"
-          className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/60 focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/20"
+          className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/20"
         >
           <option value="">Select an option</option>
           <option value="lessons">Private Lessons</option>
@@ -92,7 +104,10 @@ export default function ContactForm() {
         </select>
       </div>
       <div className="mt-6">
-        <label htmlFor="message" className="mb-2 block text-sm font-medium text-white/60">
+        <label
+          htmlFor="message"
+          className="mb-2 block text-sm font-medium text-white/60"
+        >
           Message
         </label>
         <textarea
