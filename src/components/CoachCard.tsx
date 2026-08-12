@@ -1,7 +1,7 @@
 "use client";
 
 import type { Coach } from "@/data/coaches";
-import Image from "next/image";
+import { assetUrl } from "@/lib/supabase/storage";
 
 interface Props {
   coach: Coach;
@@ -10,6 +10,10 @@ interface Props {
 }
 
 export default function CoachCard({ coach, index, onSelect }: Props) {
+  const rawSpecialties = (coach as any).specialties ?? coach.specialties;
+  const specialties = Array.isArray(rawSpecialties) ? rawSpecialties : (rawSpecialties || '').split(', ').filter(Boolean);
+  const imageSrc = assetUrl((coach as any).image_url || coach.image || '');
+  const objectPos = (coach as any).object_position || coach.objectPosition || '';
   return (
     <div
       className="coach-card group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/30 hover:border-brand-teal/30 cursor-pointer"
@@ -17,14 +21,14 @@ export default function CoachCard({ coach, index, onSelect }: Props) {
       onClick={() => onSelect?.(coach)}
     >
       <div className="aspect-[4/3] relative overflow-hidden">
-        {coach.image ? (
+        {imageSrc ? (
           <>
             <img
-              src={coach.image}
+              src={imageSrc}
               alt={coach.name}
               className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               loading="lazy"
-              style={coach.objectPosition ? { objectPosition: coach.objectPosition } : undefined}
+              style={objectPos ? { objectPosition: objectPos } : undefined}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
             {coach.quote && (
@@ -53,7 +57,7 @@ export default function CoachCard({ coach, index, onSelect }: Props) {
         </h3>
         <p className="mt-1 text-sm font-medium text-brand-teal">{coach.role}</p>
         <div className="mt-4 flex flex-wrap gap-1.5">
-          {coach.specialties.split(", ").map((s) => (
+          {specialties.map((s: string) => (
             <span
               key={s}
               className="rounded-full border border-white/10 px-2.5 py-0.5 text-[11px] text-zinc-400 transition-colors duration-300 group-hover:border-brand-teal/30 group-hover:text-zinc-300"

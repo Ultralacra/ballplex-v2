@@ -24,6 +24,15 @@ export default function CoachModal({ coach, onClose }: Props) {
 
   if (!coach) return null;
 
+  const rawSpecialties = (coach as any).specialties;
+  const specialties = Array.isArray(rawSpecialties)
+    ? rawSpecialties.filter(Boolean)
+    : typeof rawSpecialties === "string"
+      ? rawSpecialties.split(", ").filter(Boolean)
+      : [];
+  const imageSrc = (coach as any).image_url || coach.image;
+  const objectPosition = (coach as any).object_position || coach.objectPosition;
+
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4 transition-opacity duration-300 opacity-100"
@@ -39,25 +48,39 @@ export default function CoachModal({ coach, onClose }: Props) {
           className="absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white/60 hover:bg-white/20 hover:text-white transition-colors"
           aria-label="Close"
         >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
-        {coach.image && (
+        {imageSrc && (
           <div className="relative overflow-hidden rounded-xl mb-5 aspect-[4/5]">
             <img
-              src={coach.image}
+              src={imageSrc}
               alt={coach.name}
               className="h-full w-full object-cover"
-              style={coach.objectPosition ? { objectPosition: coach.objectPosition } : undefined}
+              style={objectPosition ? { objectPosition } : undefined}
             />
           </div>
         )}
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-teal mb-1">{coach.role}</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-teal mb-1">
+          {coach.role}
+        </p>
         <h2 className="text-2xl font-bold text-white mb-3">{coach.name}</h2>
-        <p className="text-sm text-brand-gray leading-relaxed mb-4">{coach.bio}</p>
+        <p className="text-sm text-brand-gray leading-relaxed mb-4">
+          {coach.bio}
+        </p>
         <div className="flex flex-wrap gap-1.5 mb-4">
-          {coach.specialties.split(", ").map((s) => (
+          {specialties.map((s: string) => (
             <span
               key={s}
               className="rounded-full border border-brand-teal/20 bg-brand-teal/5 px-2.5 py-0.5 text-[11px] text-brand-teal"
@@ -68,7 +91,9 @@ export default function CoachModal({ coach, onClose }: Props) {
         </div>
         {coach.quote && (
           <div className="border-l-2 border-brand-teal pl-4 mb-4">
-            <p className="text-sm italic text-white/70">&ldquo;{coach.quote}&rdquo;</p>
+            <p className="text-sm italic text-white/70">
+              &ldquo;{coach.quote}&rdquo;
+            </p>
           </div>
         )}
         {coach.instagram && (

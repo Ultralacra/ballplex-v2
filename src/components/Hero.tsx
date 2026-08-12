@@ -1,7 +1,24 @@
 import { siteConfig } from "@/data/site";
+import { assetUrl } from "@/lib/supabase/storage";
 
-export default function Hero() {
-  const lines = siteConfig.tagline.replace(/\.\s*$/, "").split(". ");
+type HeroData = {
+  videoSrc?: string;
+  tagline?: string;
+  description?: string;
+  location?: string;
+  primaryCTA?: { text: string; href: string };
+  secondaryCTA?: { text: string; href: string };
+};
+
+export default function Hero({ videoSrc, tagline, description, location, primaryCTA, secondaryCTA }: HeroData = {}) {
+  const vSrc = assetUrl(videoSrc || "/ballplex-promo.mp4");
+  const tag = tagline || siteConfig.tagline;
+  const desc = description || siteConfig.description;
+  const loc = location || "Viera, Florida";
+  const pCTA = primaryCTA || { text: "Get Started", href: siteConfig.bookNowUrl };
+  const sCTA = secondaryCTA || { text: "Explore Programs", href: "/programs" };
+
+  const lines = tag.replace(/\.\s*$/, "").split(". ");
   const taglineParts = lines.map((line, i) => (
     <span key={i}>
       {line}.{i < lines.length - 1 && <br />}
@@ -13,7 +30,7 @@ export default function Hero() {
       <div className="absolute inset-0 z-0" id="hero-bg">
         <video
           className="absolute inset-0 h-full w-full object-cover"
-          src="/ballplex-promo.mp4"
+          src={vSrc}
           autoPlay
           muted
           loop
@@ -29,7 +46,7 @@ export default function Hero() {
           className="mb-6 text-sm font-semibold uppercase tracking-[0.35em] text-brand-teal"
           data-reveal
         >
-          Viera, Florida
+          {loc}
         </p>
         <h1
           className="max-w-6xl text-5xl font-extrabold leading-none tracking-tight text-white md:text-7xl lg:text-8xl"
@@ -43,7 +60,7 @@ export default function Hero() {
           data-reveal
           data-delay="200"
         >
-          {siteConfig.description}
+          {desc}
         </p>
         <div
           className="mt-12 flex flex-col gap-4 sm:flex-row"
@@ -51,15 +68,15 @@ export default function Hero() {
           data-delay="300"
         >
           <a
-            href={siteConfig.bookNowUrl}
+            href={pCTA.href}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary text-base px-10 py-5"
           >
-            <span>Get Started</span>
+            <span>{pCTA.text}</span>
           </a>
-          <a href="/programs" className="btn-outline-light text-base px-10 py-5">
-            Explore Programs
+          <a href={sCTA.href} className="btn-outline-light text-base px-10 py-5">
+            {sCTA.text}
           </a>
         </div>
       </div>

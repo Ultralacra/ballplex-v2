@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { stats } from "@/data/site";
+import { stats as defaultStats } from "@/data/site";
 import { useCountUp } from "@/hooks/useCountUp";
 
-export default function StatsBar() {
+type StatItem = { value: string; label: string };
+
+export default function StatsBar({ stats }: { stats?: StatItem[] } = {}) {
+  const items = stats || defaultStats;
   useCountUp();
 
   return (
@@ -15,7 +18,7 @@ export default function StatsBar() {
 
       <div className="container-page relative z-10">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">
-          {stats.map((stat, i) => {
+          {items.map((stat, i) => {
             const num = parseInt(stat.value.replace(/\D/g, ""), 10);
             const suffix = stat.value.includes("+") ? "+" : "";
             return (

@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import AnimationProvider from "@/components/AnimationProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -21,13 +18,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-screen antialiased">
-        <Header />
-        <main>
-          <AnimationProvider>{children}</AnimationProvider>
-        </main>
-        <Footer />
-      </body>
+      <body className="min-h-screen antialiased">{children}</body>
     </html>
   );
 }
