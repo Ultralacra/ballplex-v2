@@ -29,9 +29,7 @@ async function getEvents() {
   }
 }
 
-function getUpcomingEvents<T extends { date?: string | null }>(
-  events: T[],
-) {
+function getUpcomingEvents<T extends { date?: string | null }>(events: T[]) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -48,10 +46,7 @@ function getUpcomingEvents<T extends { date?: string | null }>(
 }
 
 export default async function EventsPage() {
-  const [sections, events] = await Promise.all([
-    getSections(),
-    getEvents(),
-  ]);
+  const [sections, events] = await Promise.all([getSections(), getEvents()]);
   const upcomingEvents = getUpcomingEvents(events);
   const eventGridSections = sections.filter(
     (section: any) => section.type === "events_grid",
@@ -164,7 +159,6 @@ export default async function EventsPage() {
           </div>
         </div>
       </section>
-
     </>
   );
 }
