@@ -18,7 +18,12 @@ export default function Hero({
   primaryCTA,
   secondaryCTA,
 }: HeroData = {}) {
-  const vSrc = assetUrl(videoSrc || "/ballplex-promo.mp4");
+  const requestedVideo = videoSrc || "/ballplex-promo_2.mp4";
+  const vSrc = assetUrl(
+    requestedVideo === "/ballplex-promo.mp4"
+      ? "/ballplex-promo_2.mp4"
+      : requestedVideo,
+  );
   const tag = tagline || siteConfig.tagline;
   const desc = description || siteConfig.description;
   const loc = location || "Viera, Florida";
