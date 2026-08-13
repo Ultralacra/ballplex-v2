@@ -10,12 +10,22 @@ type HeroData = {
   secondaryCTA?: { text: string; href: string };
 };
 
-export default function Hero({ videoSrc, tagline, description, location, primaryCTA, secondaryCTA }: HeroData = {}) {
+export default function Hero({
+  videoSrc,
+  tagline,
+  description,
+  location,
+  primaryCTA,
+  secondaryCTA,
+}: HeroData = {}) {
   const vSrc = assetUrl(videoSrc || "/ballplex-promo.mp4");
   const tag = tagline || siteConfig.tagline;
   const desc = description || siteConfig.description;
   const loc = location || "Viera, Florida";
-  const pCTA = primaryCTA || { text: "Get Started", href: siteConfig.bookNowUrl };
+  const pCTA = primaryCTA || {
+    text: "Get Started",
+    href: siteConfig.bookNowUrl,
+  };
   const sCTA = secondaryCTA || { text: "Explore Programs", href: "/programs" };
 
   const lines = tag.replace(/\.\s*$/, "").split(". ");
@@ -35,7 +45,7 @@ export default function Hero({ videoSrc, tagline, description, location, primary
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/55 to-brand-black"></div>
         <div className="absolute inset-0 bg-grid-pattern opacity-30"></div>
@@ -75,15 +85,28 @@ export default function Hero({ videoSrc, tagline, description, location, primary
           >
             <span>{pCTA.text}</span>
           </a>
-          <a href={sCTA.href} className="btn-outline-light text-base px-10 py-5">
+          <a
+            href={sCTA.href}
+            className="btn-outline-light text-base px-10 py-5"
+          >
             {sCTA.text}
           </a>
         </div>
       </div>
 
       <div className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2 animate-bounce">
-        <svg className="h-6 w-6 text-white/30" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+        <svg
+          className="h-6 w-6 text-white/30"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="2"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+          />
         </svg>
       </div>
     </section>
