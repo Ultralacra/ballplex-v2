@@ -85,13 +85,12 @@ export default function HomeschoolPage() {
         body: JSON.stringify(form),
       });
       const data = await response.json();
-      if (!response.ok)
+      if (!response.ok) {
         throw new Error(data.error || "Unable to send your information.");
+      }
       setForm(initialForm);
       setFormStatus("success");
-      setFormMessage(
-        "Thank you. We received your pre-registration information.",
-      );
+      setFormMessage("Your information was sent successfully.");
     } catch (error) {
       setFormStatus("error");
       setFormMessage(
@@ -483,14 +482,6 @@ export default function HomeschoolPage() {
                   placeholder="Shortstop, pitcher, catcher..."
                 />
               </div>
-              {formMessage && (
-                <p
-                  className={`mt-6 text-sm ${formStatus === "error" ? "text-red-300" : "text-brand-teal"}`}
-                  role="status"
-                >
-                  {formMessage}
-                </p>
-              )}
               <button
                 type="submit"
                 className="btn-primary mt-8 w-full"
@@ -504,6 +495,56 @@ export default function HomeschoolPage() {
           </div>
         </div>
       </section>
+
+      {formStatus !== "idle" && (
+        <div
+          className="fixed inset-0 z-[120] flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="form-status-title"
+        >
+          <div className="w-full max-w-md rounded-2xl border border-white/10 bg-zinc-900 p-8 text-center shadow-2xl">
+            {formStatus === "submitting" ? (
+              <>
+                <div className="mx-auto h-10 w-10 animate-spin rounded-full border-2 border-white/20 border-t-brand-teal" />
+                <h2
+                  id="form-status-title"
+                  className="mt-5 text-xl font-semibold text-white"
+                >
+                  Sending your information
+                </h2>
+                <p className="mt-2 text-sm text-brand-gray">
+                  Please wait a moment.
+                </p>
+              </>
+            ) : (
+              <>
+                <h2
+                  id="form-status-title"
+                  className={`text-xl font-semibold ${formStatus === "error" ? "text-red-300" : "text-brand-teal"}`}
+                >
+                  {formStatus === "error"
+                    ? "Unable to send"
+                    : "Information sent"}
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-brand-gray">
+                  {formMessage}
+                </p>
+                <button
+                  type="button"
+                  className="btn-primary mt-6 w-full"
+                  onClick={() => {
+                    setFormStatus("idle");
+                    setFormMessage("");
+                  }}
+                >
+                  <span>{formStatus === "error" ? "Try again" : "Close"}</span>
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
 
       <CTABanner
         title={(cta as any).title}
