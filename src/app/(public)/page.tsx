@@ -86,9 +86,11 @@ export default async function HomePage() {
     link:
       p.slug === "homeschool"
         ? "/homeschool"
-        : p.slug
-          ? `/programs#${p.slug}`
-          : p.link || "/programs",
+        : p.slug === "camps"
+          ? "/events"
+          : p.slug
+            ? `/programs#${p.slug}`
+            : p.link || "/programs",
     pricing:
       Array.isArray(p.pricing) && p.pricing.length > 0
         ? p.pricing[0]?.price
