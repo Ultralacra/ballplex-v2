@@ -83,7 +83,12 @@ export default async function HomePage() {
     title: p.title,
     description: p.description,
     icon: p.icon || "user",
-    link: p.slug ? `/programs#${p.slug}` : p.link || "/programs",
+    link:
+      p.slug === "homeschool"
+        ? "/homeschool"
+        : p.slug
+          ? `/programs#${p.slug}`
+          : p.link || "/programs",
     pricing:
       Array.isArray(p.pricing) && p.pricing.length > 0
         ? p.pricing[0]?.price

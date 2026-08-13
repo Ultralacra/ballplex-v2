@@ -8,6 +8,7 @@ import CoachModal from "@/components/CoachModal";
 import ImageSlideshow from "@/components/ImageSlideshow";
 import { coaches as fallbackCoaches } from "@/data/coaches";
 import { siteConfig } from "@/data/site";
+import { coachAssetUrl } from "@/lib/supabase/storage";
 import type { Coach } from "@/data/coaches";
 
 const lessonsSlides = [
@@ -223,18 +224,31 @@ async function loadCoaches() {
       .from("coaches")
       .select("*")
       .order("order_index");
-    if (!data?.length) return fallbackCoaches;
+    if (!data?.length) {
+      return fallbackCoaches.map((coach) => ({
+        ...coach,
+        image_url: coachAssetUrl(coach.name, coach.image),
+      }));
+    }
 
     return data.map((coach: any) => {
       const fallback = fallbackCoaches.find(
         (item) => item.name.trim() === coach.name?.trim(),
       );
-      return fallback && (!coach.bio || coach.bio.length < fallback.bio.length)
-        ? { ...fallback, ...coach, bio: fallback.bio }
-        : coach;
+      const merged =
+        fallback && (!coach.bio || coach.bio.length < fallback.bio.length)
+          ? { ...fallback, ...coach, bio: fallback.bio }
+          : coach;
+      return {
+        ...merged,
+        image_url: coachAssetUrl(merged.name, merged.image_url || merged.image),
+      };
     });
   } catch {
-    return fallbackCoaches;
+    return fallbackCoaches.map((coach) => ({
+      ...coach,
+      image_url: coachAssetUrl(coach.name, coach.image),
+    }));
   }
 }
 

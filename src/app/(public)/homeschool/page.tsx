@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import CTABanner from "@/components/CTABanner";
-import { siteConfig } from "@/data/site";
 
 type HomeschoolForm = {
   athleteFullName: string;
@@ -200,9 +199,7 @@ export default function HomeschoolPage() {
               </div>
               <div className="mt-8">
                 <a
-                  href={siteConfig.bookNowUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#pre-register"
                   className="btn-primary w-full text-center"
                 >
                   <span>Apply Now</span>
@@ -237,7 +234,10 @@ export default function HomeschoolPage() {
         </div>
       </section>
 
-      <section className="bg-brand-dark py-20 md:py-28">
+      <section
+        id="pre-register"
+        className="scroll-mt-24 bg-brand-dark py-20 md:py-28"
+      >
         <div className="container-page">
           <div className="mx-auto max-w-2xl">
             <h2 className="text-center text-3xl font-bold tracking-tight text-white">
