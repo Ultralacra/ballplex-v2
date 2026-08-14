@@ -62,10 +62,21 @@ export default function LoginPage() {
           borderRight: "1px solid rgba(245,247,243,0.12)",
           backgroundColor: "#111a17",
           backgroundImage: `
+            linear-gradient(180deg, rgba(10,15,14,0.82) 0%, rgba(10,15,14,0.5) 48%, rgba(10,15,14,0.9) 100%),
             linear-gradient(115deg, transparent 0 48%, rgba(134,201,182,0.10) 48.2% 48.5%, transparent 48.7%),
-            repeating-linear-gradient(90deg, transparent 0 78px, rgba(245,247,243,0.035) 79px 80px),
-            repeating-linear-gradient(0deg, transparent 0 78px, rgba(245,247,243,0.035) 79px 80px)
+            url('/SC/IMG_5973.jpg')
           `,
+          backgroundSize: "cover, auto, cover",
+          backgroundPosition: "center, center, center",
+          backgroundRepeat: "no-repeat",
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(90deg, rgba(10,15,14,0.36), transparent 58%), repeating-linear-gradient(90deg, transparent 0 78px, rgba(245,247,243,0.035) 79px 80px), repeating-linear-gradient(0deg, transparent 0 78px, rgba(245,247,243,0.035) 79px 80px)",
+            pointerEvents: "none",
+          },
           "&::after": {
             content: '""',
             position: "absolute",
@@ -85,7 +96,12 @@ export default function LoginPage() {
             component="img"
             src="/LOGO.png"
             alt="Ballplex"
-            sx={{ width: 58, height: 58, objectFit: "contain", mb: 8 }}
+            sx={{
+              width: { md: 112, lg: 128 },
+              height: { md: 112, lg: 128 },
+              objectFit: "contain",
+              mb: 6,
+            }}
           />
           <Typography
             component="p"
@@ -153,7 +169,7 @@ export default function LoginPage() {
               component="img"
               src="/LOGO.png"
               alt="Ballplex"
-              sx={{ width: 52, height: 52, objectFit: "contain" }}
+              sx={{ width: 78, height: 78, objectFit: "contain" }}
             />
           </Box>
 
@@ -219,6 +235,10 @@ export default function LoginPage() {
                 "& .MuiInputLabel-root": { color: "rgba(245,247,243,0.55)" },
                 "& .MuiOutlinedInput-root": {
                   backgroundColor: "rgba(245,247,243,0.035)",
+                  color: "#f5f7f3",
+                  "& fieldset": { borderColor: "rgba(245,247,243,0.2)" },
+                  "&:hover fieldset": { borderColor: "rgba(134,201,182,0.7)" },
+                  "&.Mui-focused fieldset": { borderColor: "#86c9b6" },
                 },
               }}
             />
@@ -236,6 +256,10 @@ export default function LoginPage() {
                 "& .MuiInputLabel-root": { color: "rgba(245,247,243,0.55)" },
                 "& .MuiOutlinedInput-root": {
                   backgroundColor: "rgba(245,247,243,0.035)",
+                  color: "#f5f7f3",
+                  "& fieldset": { borderColor: "rgba(245,247,243,0.2)" },
+                  "&:hover fieldset": { borderColor: "rgba(134,201,182,0.7)" },
+                  "&.Mui-focused fieldset": { borderColor: "#86c9b6" },
                 },
               }}
             />

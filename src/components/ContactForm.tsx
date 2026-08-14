@@ -4,18 +4,30 @@ import { useState, type FormEvent } from "react";
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const data = new FormData(form);
-    fetch("https://formspree.io/f/your-form-id", {
-      method: "POST",
-      body: data,
-      headers: { Accept: "application/json" },
-    })
-      .then(() => setSubmitted(true))
-      .catch(() => setSubmitted(true));
+    setError("");
+    const data = Object.fromEntries(new FormData(form).entries());
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      if (!response.ok)
+        throw new Error(result.error || "Unable to send your message.");
+      setSubmitted(true);
+    } catch (submitError) {
+      setError(
+        submitError instanceof Error
+          ? submitError.message
+          : "Unable to send your message.",
+      );
+    }
   };
 
   if (submitted) {
@@ -122,6 +134,9 @@ export default function ContactForm() {
       <button type="submit" className="btn-primary mt-8 w-full">
         <span>Send Message</span>
       </button>
+      {error && (
+        <p className="mt-4 text-center text-sm text-red-300">{error}</p>
+      )}
     </form>
   );
 }

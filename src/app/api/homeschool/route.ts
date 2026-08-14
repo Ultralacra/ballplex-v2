@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 
 const smtpUser = process.env.SMTP_USER;
 const smtpPass = process.env.SMTP_PASS;
@@ -17,13 +18,6 @@ const requiredFields = [
 ] as const;
 
 export async function POST(request: Request) {
-  if (!smtpUser || !smtpPass) {
-    return NextResponse.json(
-      { error: "Email service is not configured" },
-      { status: 503 },
-    );
-  }
-
   let body: Record<string, unknown>;
 
   try {
@@ -43,6 +37,33 @@ export async function POST(request: Request) {
 
   if (!/^\S+@\S+\.\S+$/.test(body.email as string)) {
     return NextResponse.json({ error: "A valid email is required" }, { status: 400 });
+  }
+
+  const { error: leadError } = await supabaseAdmin.from("leads").insert({
+    source: "homeschool",
+    name: String(body.parentFullName).trim(),
+    email: String(body.email).trim(),
+    phone: typeof body.phone === "string" ? body.phone.trim() : null,
+    payload: {
+      athleteFullName: body.athleteFullName,
+      parentFullName: body.parentFullName,
+      athleteGender: body.athleteGender,
+      sport: body.sport,
+      gradYear: body.gradYear,
+      interestedIn: body.interestedIn,
+      gpa: body.gpa,
+      currentTeam: body.currentTeam,
+      primaryFieldingPosition: body.primaryFieldingPosition,
+    },
+  });
+
+  if (leadError) {
+    console.error("Lead database error", leadError);
+    return NextResponse.json({ error: "Unable to save your information" }, { status: 500 });
+  }
+
+  if (!smtpUser || !smtpPass) {
+    return NextResponse.json({ success: true, emailSent: false });
   }
 
   const fields = [
@@ -115,12 +136,9 @@ We look forward to connecting with you!`;
       }),
     ]);
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, emailSent: true });
   } catch (error) {
     console.error("SMTP email error", error);
-    return NextResponse.json(
-      { error: "Unable to reach the email service right now" },
-      { status: 502 },
-    );
+    return NextResponse.json({ success: true, emailSent: false });
   }
 }

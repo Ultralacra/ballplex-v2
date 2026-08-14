@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import {
   Box,
   Drawer,
@@ -17,7 +17,7 @@ import {
   Divider,
   Avatar,
   Tooltip,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Dashboard as DashboardIcon,
   People as PeopleIcon,
@@ -30,23 +30,40 @@ import {
   ChevronLeft as ChevronLeftIcon,
   Menu as MenuIcon,
   Web as WebIcon,
-} from '@mui/icons-material';
-import { createClient } from '@/lib/supabase/client';
+  MenuBook as ManualIcon,
+  Inbox as LeadsIcon,
+  Group as UsersIcon,
+} from "@mui/icons-material";
+import { createClient } from "@/lib/supabase/client";
+import type { AdminRole } from "@/lib/auth/require-role";
 
 const DRAWER_WIDTH = 260;
 
 const NAV_ITEMS = [
-  { label: 'Dashboard', href: '/admin', icon: <DashboardIcon /> },
-  { label: 'Page Builder', href: '/admin/pages', icon: <WebIcon /> },
-  { label: 'Coaches', href: '/admin/coaches', icon: <PeopleIcon /> },
-  { label: 'Events', href: '/admin/events', icon: <EventIcon /> },
-  { label: 'Programs', href: '/admin/programs', icon: <SchoolIcon /> },
-  { label: 'Testimonials', href: '/admin/testimonials', icon: <FormatQuoteIcon /> },
-  { label: 'Site Config', href: '/admin/site', icon: <SettingsIcon /> },
-  { label: 'Images', href: '/admin/images', icon: <ImageIcon /> },
+  { label: "Dashboard", href: "/admin", icon: <DashboardIcon /> },
+  { label: "Page Builder", href: "/admin/pages", icon: <WebIcon /> },
+  { label: "Coaches", href: "/admin/coaches", icon: <PeopleIcon /> },
+  { label: "Events", href: "/admin/events", icon: <EventIcon /> },
+  { label: "Programs", href: "/admin/programs", icon: <SchoolIcon /> },
+  {
+    label: "Testimonials",
+    href: "/admin/testimonials",
+    icon: <FormatQuoteIcon />,
+  },
+  { label: "Site Config", href: "/admin/site", icon: <SettingsIcon /> },
+  { label: "Images", href: "/admin/images", icon: <ImageIcon /> },
+  { label: "Leads", href: "/admin/leads", icon: <LeadsIcon /> },
+  { label: "Usuarios", href: "/admin/users", icon: <UsersIcon /> },
+  { label: "Manual de uso", href: "/admin/manual", icon: <ManualIcon /> },
 ];
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({
+  children,
+  role,
+}: {
+  children: React.ReactNode;
+  role: AdminRole;
+}) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -54,19 +71,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const handleLogout = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.push('/login');
+    router.push("/login");
   };
 
   const drawerContent = (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <Box sx={{ p: 2.5, display: 'flex', alignItems: 'center', gap: 1 }}>
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <Box sx={{ p: 2.5, display: "flex", alignItems: "center", gap: 1 }}>
         <Avatar
           src="/LOGO.png"
           alt="Ballplex"
           variant="rounded"
           sx={{ width: 36, height: 36 }}
         />
-        <Typography variant="h6" sx={{ color: '#86C9B6', fontWeight: 700 }}>
+        <Typography variant="h6" sx={{ color: "#86C9B6", fontWeight: 700 }}>
           Ballplex Admin
         </Typography>
       </Box>
@@ -74,10 +91,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <Divider />
 
       <List sx={{ flex: 1, px: 1, py: 1 }}>
-        {NAV_ITEMS.map((item) => {
-          const isActive = item.href === '/admin'
-            ? pathname === '/admin'
-            : pathname.startsWith(item.href);
+        {NAV_ITEMS.filter(
+          (item) =>
+            role === "admin" ||
+            (item.href !== "/admin/users" && item.href !== "/admin/leads"),
+        ).map((item) => {
+          const isActive =
+            item.href === "/admin"
+              ? pathname === "/admin"
+              : pathname.startsWith(item.href);
 
           return (
             <ListItem key={item.href} disablePadding sx={{ mb: 0.5 }}>
@@ -88,17 +110,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 }}
                 sx={{
                   borderRadius: 2,
-                  backgroundColor: isActive ? 'rgba(134, 201, 182, 0.10)' : 'transparent',
-                  '&:hover': {
+                  backgroundColor: isActive
+                    ? "rgba(134, 201, 182, 0.10)"
+                    : "transparent",
+                  "&:hover": {
                     backgroundColor: isActive
-                      ? 'rgba(134, 201, 182, 0.15)'
-                      : 'rgba(255,255,255,0.04)',
+                      ? "rgba(134, 201, 182, 0.15)"
+                      : "rgba(255,255,255,0.04)",
                   },
                 }}
               >
                 <ListItemIcon
                   sx={{
-                    color: isActive ? '#86C9B6' : 'text.secondary',
+                    color: isActive ? "#86C9B6" : "text.secondary",
                     minWidth: 40,
                   }}
                 >
@@ -107,10 +131,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <ListItemText
                   primary={item.label}
                   sx={{
-                    '& .MuiListItemText-primary': {
+                    "& .MuiListItemText-primary": {
                       fontWeight: isActive ? 600 : 400,
-                      color: isActive ? '#fafafa' : 'text.secondary',
-                      fontSize: '0.9rem',
+                      color: isActive ? "#fafafa" : "text.secondary",
+                      fontSize: "0.9rem",
                     },
                   }}
                 />
@@ -130,7 +154,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </ListItemIcon>
             <ListItemText
               primary="Cerrar Sesión"
-              sx={{ '& .MuiListItemText-primary': { fontSize: '0.9rem' } }}
+              sx={{ "& .MuiListItemText-primary": { fontSize: "0.9rem" } }}
             />
           </ListItemButton>
         </ListItem>
@@ -139,7 +163,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   );
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+    <Box sx={{ display: "flex", minHeight: "100vh" }}>
       <AppBar
         position="fixed"
         elevation={0}
@@ -153,16 +177,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             color="inherit"
             edge="start"
             onClick={() => setMobileOpen(!mobileOpen)}
-            sx={{ mr: 2, display: { md: 'none' } }}
+            sx={{ mr: 2, display: { md: "none" } }}
           >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap sx={{ flex: 1, fontWeight: 600 }}>
             {NAV_ITEMS.find((item) =>
-              item.href === '/admin'
-                ? pathname === '/admin'
-                : pathname.startsWith(item.href)
-            )?.label || 'Admin'}
+              item.href === "/admin"
+                ? pathname === "/admin"
+                : pathname.startsWith(item.href),
+            )?.label || "Admin"}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -177,8 +201,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           onClose={() => setMobileOpen(false)}
           ModalProps={{ keepMounted: true }}
           sx={{
-            display: { xs: 'block', md: 'none' },
-            '& .MuiDrawer-paper': { width: DRAWER_WIDTH },
+            display: { xs: "block", md: "none" },
+            "& .MuiDrawer-paper": { width: DRAWER_WIDTH },
           }}
         >
           {drawerContent}
@@ -186,8 +210,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: 'none', md: 'block' },
-            '& .MuiDrawer-paper': { width: DRAWER_WIDTH },
+            display: { xs: "none", md: "block" },
+            "& .MuiDrawer-paper": { width: DRAWER_WIDTH },
           }}
           open
         >
@@ -201,8 +225,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           flex: 1,
           p: 3,
           mt: 8,
-          minHeight: 'calc(100vh - 64px)',
-          backgroundColor: 'background.default',
+          minHeight: "calc(100vh - 64px)",
+          backgroundColor: "background.default",
         }}
       >
         {children}
