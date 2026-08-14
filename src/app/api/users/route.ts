@@ -11,7 +11,7 @@ export async function GET() {
   const [{ data: authData, error: authError }, { data: profiles, error: profileError }] =
     await Promise.all([
       supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 1000 }),
-      supabaseAdmin.from("admin_users").select("id, auth_user_id, email, role"),
+      supabaseAdmin.from("admin_users").select("id, auth_user_id, email, role, created_at"),
     ]);
 
   if (authError || profileError) {
@@ -26,8 +26,7 @@ export async function GET() {
   );
   const profileByEmail = new Map((profiles || []).map((profile) => [profile.email.toLowerCase(), profile]));
 
-  return NextResponse.json({
-    users: (authData.users || []).map((user) => {
+  const authUsers = (authData.users || []).map((user) => {
       const profile = profileByAuthId.get(user.id) || (user.email ? profileByEmail.get(user.email.toLowerCase()) : null);
       return {
         id: user.id,
@@ -39,8 +38,23 @@ export async function GET() {
         profile_id: profile?.id || null,
         role: profile?.role || null,
       };
-    }),
-  });
+    });
+
+  const authIds = new Set(authUsers.map((user) => user.id));
+  const profileOnlyUsers = (profiles || [])
+    .filter((profile) => profile.auth_user_id && !authIds.has(profile.auth_user_id))
+    .map((profile) => ({
+      id: profile.auth_user_id as string,
+      email: profile.email,
+      created_at: profile.created_at,
+      last_sign_in_at: null,
+      invited_at: null,
+      email_confirmed_at: null,
+      profile_id: profile.id,
+      role: profile.role,
+    }));
+
+  return NextResponse.json({ users: [...authUsers, ...profileOnlyUsers] });
 }
 
 export async function POST(request: Request) {

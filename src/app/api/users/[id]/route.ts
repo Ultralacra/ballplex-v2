@@ -79,14 +79,28 @@ export async function DELETE(
     .eq("id", id)
     .maybeSingle();
 
-  const targetAuthId = profileTarget?.auth_user_id || id;
+  let targetAuthId = profileTarget?.auth_user_id || id;
   if (targetAuthId === access.profile.auth_user_id) {
     return NextResponse.json({ error: "You cannot remove your own account" }, { status: 400 });
   }
 
-  const { data: authUser, error: authUserError } = await supabaseAdmin.auth.admin.getUserById(targetAuthId);
-  if (authUserError || !authUser.user) {
-    return NextResponse.json({ error: "Auth user not found" }, { status: 404 });
+  let authUser = (await supabaseAdmin.auth.admin.getUserById(targetAuthId)).data.user;
+  if (!authUser && profileTarget?.email) {
+    const { data: authUsers, error: authUsersError } = await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 1000 });
+    if (authUsersError) return NextResponse.json({ error: authUsersError.message }, { status: 500 });
+    authUser = authUsers.users.find((user) => user.email?.toLowerCase() === profileTarget.email.toLowerCase()) || null;
+    if (authUser) targetAuthId = authUser.id;
+  }
+
+  if (targetAuthId === access.profile.auth_user_id) {
+    return NextResponse.json({ error: "You cannot remove your own account" }, { status: 400 });
+  }
+
+  if (!authUser) {
+    if (!profileTarget) return NextResponse.json({ error: "User profile not found" }, { status: 404 });
+    const { error: profileDeleteError } = await supabaseAdmin.from("admin_users").delete().eq("id", profileTarget.id);
+    if (profileDeleteError) return NextResponse.json({ error: profileDeleteError.message }, { status: 500 });
+    return NextResponse.json({ success: true });
   }
 
   if (profileTarget?.role === "admin") {
