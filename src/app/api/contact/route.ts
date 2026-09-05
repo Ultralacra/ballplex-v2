@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getEmailConfig } from "@/lib/email";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 
 export async function POST(request: Request) {
@@ -29,5 +30,28 @@ export async function POST(request: Request) {
   });
 
   if (error) return NextResponse.json({ error: "Unable to save your inquiry" }, { status: 500 });
-  return NextResponse.json({ success: true });
+
+  const emailConfig = getEmailConfig();
+  if (!emailConfig) return NextResponse.json({ success: true, emailSent: false });
+
+  try {
+    await emailConfig.transporter.sendMail({
+      from: emailConfig.from,
+      to: emailConfig.notificationEmails,
+      replyTo: email,
+      subject: `New contact inquiry from ${name}`,
+      text: [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Phone: ${typeof body.phone === "string" ? body.phone.trim() : ""}`,
+        `Interest: ${typeof body.interest === "string" ? body.interest.trim() : ""}`,
+        "",
+        message,
+      ].join("\n"),
+    });
+    return NextResponse.json({ success: true, emailSent: true });
+  } catch (emailError) {
+    console.error("SMTP email error", emailError);
+    return NextResponse.json({ success: true, emailSent: false });
+  }
 }

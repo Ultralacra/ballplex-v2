@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { getEmailConfig } from "@/lib/email";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 
-const smtpUser = process.env.SMTP_USER;
-const smtpPass = process.env.SMTP_PASS;
 const publicSiteUrl = (
   process.env.PUBLIC_SITE_URL || "https://theballplex.com"
 ).replace(/\/$/, "");
@@ -62,7 +60,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unable to save your information" }, { status: 500 });
   }
 
-  if (!smtpUser || !smtpPass) {
+  const emailConfig = getEmailConfig();
+  if (!emailConfig) {
     return NextResponse.json({ success: true, emailSent: false });
   }
 
@@ -112,23 +111,16 @@ We look forward to connecting with you!`;
     </div>`;
 
   try {
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || "smtp.gmail.com",
-      port: Number(process.env.SMTP_PORT || 465),
-      secure: (process.env.SMTP_PORT || "465") === "465",
-      auth: { user: smtpUser, pass: smtpPass },
-    });
-
     await Promise.all([
-      transporter.sendMail({
-        from: `Ballplex Website <${smtpUser}>`,
-        to: smtpUser,
+      emailConfig.transporter.sendMail({
+        from: emailConfig.from,
+        to: emailConfig.notificationEmails,
         replyTo: body.email as string,
         subject: "New Homeschool Program Pre-Registration",
         text: fields,
       }),
-      transporter.sendMail({
-        from: `Ballplex Website <${smtpUser}>`,
+      emailConfig.transporter.sendMail({
+        from: emailConfig.from,
         to: body.email as string,
         subject: "Ballplex Homeschool Program",
         text: userMessage,
