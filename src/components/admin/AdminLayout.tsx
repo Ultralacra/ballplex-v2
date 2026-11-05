@@ -58,7 +58,6 @@ const NAV_ITEMS = [
     label: "Enlaces cortos",
     href: "/admin/short-links",
     icon: <ShortLinksIcon />,
-    disabled: true,
   },
   { label: "Usuarios", href: "/admin/users", icon: <UsersIcon /> },
   { label: "Manual de uso", href: "/admin/manual", icon: <ManualIcon /> },
@@ -111,7 +110,6 @@ export default function AdminLayout({
           return (
             <ListItem key={item.href} disablePadding sx={{ mb: 0.5 }}>
               <ListItemButton
-                disabled={item.disabled}
                 onClick={() => {
                   router.push(item.href);
                   setMobileOpen(false);

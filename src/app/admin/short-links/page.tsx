@@ -25,6 +25,7 @@ import {
 } from "@mui/material";
 import {
   Add as AddIcon,
+  ContentCopy as CopyIcon,
   Delete as DeleteIcon,
   Edit as EditIcon,
   Link as LinkIcon,
@@ -144,6 +145,16 @@ export default function ShortLinksAdminPage() {
     }
   };
 
+  const copyLink = async (item: ShortLink) => {
+    const url = `${publicBaseUrl}${item.code}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      setMessage("Enlace copiado al portapapeles.");
+    } catch {
+      setError("No se pudo copiar el enlace.");
+    }
+  };
+
   const remove = async (item: ShortLink) => {
     if (!window.confirm(`¿Eliminar /${item.code}?`)) return;
     const response = await fetch(`/api/short-links/${item.id}`, {
@@ -234,6 +245,11 @@ export default function ShortLinksAdminPage() {
                   <TableCell>{item.is_active ? "Activo" : "Inactivo"}</TableCell>
                   <TableCell align="right">{item.click_count || 0}</TableCell>
                   <TableCell align="right">
+                    <Tooltip title="Copiar enlace">
+                      <IconButton onClick={() => copyLink(item)} color="primary">
+                        <CopyIcon />
+                      </IconButton>
+                    </Tooltip>
                     <Tooltip title="Editar">
                       <IconButton onClick={() => openEdit(item)} color="primary">
                         <EditIcon />
