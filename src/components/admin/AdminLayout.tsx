@@ -54,7 +54,12 @@ const NAV_ITEMS = [
   { label: "Site Config", href: "/admin/site", icon: <SettingsIcon /> },
   { label: "Images", href: "/admin/images", icon: <ImageIcon /> },
   { label: "Leads", href: "/admin/leads", icon: <LeadsIcon /> },
-  { label: "Enlaces cortos", href: "/admin/short-links", icon: <ShortLinksIcon /> },
+  {
+    label: "Enlaces cortos",
+    href: "/admin/short-links",
+    icon: <ShortLinksIcon />,
+    disabled: true,
+  },
   { label: "Usuarios", href: "/admin/users", icon: <UsersIcon /> },
   { label: "Manual de uso", href: "/admin/manual", icon: <ManualIcon /> },
 ];
@@ -106,6 +111,7 @@ export default function AdminLayout({
           return (
             <ListItem key={item.href} disablePadding sx={{ mb: 0.5 }}>
               <ListItemButton
+                disabled={item.disabled}
                 onClick={() => {
                   router.push(item.href);
                   setMobileOpen(false);
