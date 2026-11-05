@@ -221,7 +221,6 @@ export default function ShortLinksAdminPage() {
                 <TableCell>Enlace</TableCell>
                 <TableCell>Destino</TableCell>
                 <TableCell>Estado</TableCell>
-                <TableCell align="right">Clics</TableCell>
                 <TableCell align="right">Acciones</TableCell>
               </TableRow>
             </TableHead>
@@ -243,7 +242,6 @@ export default function ShortLinksAdminPage() {
                     </Typography>
                   </TableCell>
                   <TableCell>{item.is_active ? "Activo" : "Inactivo"}</TableCell>
-                  <TableCell align="right">{item.click_count || 0}</TableCell>
                   <TableCell align="right">
                     <Tooltip title="Copiar enlace">
                       <IconButton onClick={() => copyLink(item)} color="primary">
