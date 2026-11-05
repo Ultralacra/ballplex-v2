@@ -33,6 +33,7 @@ import {
   MenuBook as ManualIcon,
   Inbox as LeadsIcon,
   Group as UsersIcon,
+  Link as ShortLinksIcon,
 } from "@mui/icons-material";
 import { createClient } from "@/lib/supabase/client";
 import type { AdminRole } from "@/lib/auth/require-role";
@@ -53,6 +54,7 @@ const NAV_ITEMS = [
   { label: "Site Config", href: "/admin/site", icon: <SettingsIcon /> },
   { label: "Images", href: "/admin/images", icon: <ImageIcon /> },
   { label: "Leads", href: "/admin/leads", icon: <LeadsIcon /> },
+  { label: "Enlaces cortos", href: "/admin/short-links", icon: <ShortLinksIcon /> },
   { label: "Usuarios", href: "/admin/users", icon: <UsersIcon /> },
   { label: "Manual de uso", href: "/admin/manual", icon: <ManualIcon /> },
 ];
