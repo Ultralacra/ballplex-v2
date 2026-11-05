@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getEmailConfig } from "@/lib/email";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import { verifyRecaptcha } from "@/lib/recaptcha-server";
 
 export async function POST(request: Request) {
   let body: Record<string, unknown>;
@@ -8,6 +9,13 @@ export async function POST(request: Request) {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+  }
+
+  if (!(await verifyRecaptcha(body.recaptchaToken, "contact"))) {
+    return NextResponse.json(
+      { error: "Security verification failed. Please try again." },
+      { status: 400 },
+    );
   }
 
   const name = typeof body.name === "string" ? body.name.trim() : "";

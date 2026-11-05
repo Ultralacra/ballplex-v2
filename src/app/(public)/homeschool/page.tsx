@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import CTABanner from "@/components/CTABanner";
+import { getRecaptchaToken } from "@/lib/recaptcha";
 
 type HomeschoolForm = {
   athleteFullName: string;
@@ -79,10 +80,11 @@ export default function HomeschoolPage() {
     setFormMessage("");
 
     try {
+      const recaptchaToken = await getRecaptchaToken("homeschool");
       const response = await fetch("/api/homeschool", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, recaptchaToken }),
       });
       const data = await response.json();
       if (!response.ok) {

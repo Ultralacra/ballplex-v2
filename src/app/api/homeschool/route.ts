@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getEmailConfig } from "@/lib/email";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import { verifyRecaptcha } from "@/lib/recaptcha-server";
 
 const publicSiteUrl = (
   process.env.PUBLIC_SITE_URL || "https://theballplex.com"
@@ -22,6 +23,13 @@ export async function POST(request: Request) {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+  }
+
+  if (!(await verifyRecaptcha(body.recaptchaToken, "homeschool"))) {
+    return NextResponse.json(
+      { error: "Security verification failed. Please try again." },
+      { status: 400 },
+    );
   }
 
   for (const field of requiredFields) {

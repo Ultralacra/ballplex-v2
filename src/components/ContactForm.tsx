@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { getRecaptchaToken } from "@/lib/recaptcha";
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -12,6 +13,7 @@ export default function ContactForm() {
     setError("");
     const data = Object.fromEntries(new FormData(form).entries());
     try {
+      data.recaptchaToken = await getRecaptchaToken("contact");
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

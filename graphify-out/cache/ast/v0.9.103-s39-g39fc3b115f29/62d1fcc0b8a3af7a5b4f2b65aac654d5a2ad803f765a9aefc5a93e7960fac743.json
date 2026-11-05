@@ -1,0 +1,1 @@
+{"nodes": [{"id": "$graphify-root$_supabase_migrations_009_sync_event_category_descriptions_sql", "label": "009_sync_event_category_descriptions.sql", "file_type": "code", "source_file": "supabase/migrations/009_sync_event_category_descriptions.sql", "source_location": null}], "edges": []}
