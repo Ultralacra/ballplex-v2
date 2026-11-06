@@ -1,14 +1,35 @@
 import { siteConfig, navLinks } from "@/data/site";
+import { createClient } from "@/lib/supabase/server";
 
-export default function Footer() {
+export default async function Footer() {
+  let config = {
+    ...siteConfig,
+    logo_url: "/LOGO.png",
+    footer_tagline: "",
+    copyright_text: "",
+  };
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase.from("site_config").select("*").limit(1).maybeSingle();
+    if (data) {
+      config = {
+        ...siteConfig,
+        ...data,
+        addresses: Array.isArray(data.addresses) ? data.addresses : siteConfig.addresses,
+      };
+    }
+  } catch {
+    // Keep the local defaults available during outages and static builds.
+  }
+
   return (
     <footer className="border-t border-zinc-800 bg-zinc-950">
       <div className="container-page py-16 md:py-24">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
-            <img src="/LOGO.png" alt="Ballplex" className="h-16 w-auto" />
+            <img src={config.logo_url || "/LOGO.png"} alt={config.name || "Ballplex"} className="h-16 w-auto" />
             <p className="mt-5 text-sm leading-relaxed text-zinc-400">
-              {siteConfig.description}
+            {config.description}
             </p>
           </div>
 
@@ -75,21 +96,21 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-zinc-400">
               <li>
                 <a
-                  href={`tel:${siteConfig.phone.replace(/\D/g, "")}`}
+                  href={`tel:${config.phone.replace(/\D/g, "")}`}
                   className="transition-colors duration-300 hover:text-brand-teal"
                 >
-                  {siteConfig.phone}
+                  {config.phone}
                 </a>
               </li>
               <li>
                 <a
-                  href={`mailto:${siteConfig.email}`}
+                  href={`mailto:${config.email}`}
                   className="transition-colors duration-300 hover:text-brand-teal"
                 >
-                  {siteConfig.email}
+                  {config.email}
                 </a>
               </li>
-              {siteConfig.addresses.map((addr) => (
+              {config.addresses.map((addr) => (
                 <li key={addr.label} className="mt-3">
                   <span className="text-xs uppercase tracking-wider text-zinc-500">
                     {addr.label}
@@ -103,10 +124,10 @@ export default function Footer() {
 
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-zinc-800 pt-8 md:flex-row">
           <p className="text-xs text-zinc-600">
-            &copy; {new Date().getFullYear()} Ballplex Sports Academy &amp; Facility. All Rights Reserved.
+            &copy; {new Date().getFullYear()} {config.copyright_text || "Ballplex Sports Academy & Facility. All Rights Reserved."}
           </p>
           <p className="text-xs text-zinc-700">
-            Elite Baseball &amp; Softball Development — Viera, Florida
+            {config.footer_tagline || "Elite Baseball & Softball Development — Viera, Florida"}
           </p>
         </div>
       </div>

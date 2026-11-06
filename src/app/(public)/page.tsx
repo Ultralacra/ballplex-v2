@@ -10,6 +10,7 @@ import { programs as fallbackPrograms } from "@/data/programs";
 import { coaches as fallbackCoaches } from "@/data/coaches";
 import { testimonials as fallbackTestimonials } from "@/data/testimonials";
 import { siteConfig as fallbackConfig } from "@/data/site";
+import PublicPageRenderer from "@/components/PublicPageRenderer";
 
 async function getSections() {
   try {
@@ -72,6 +73,10 @@ export default async function HomePage() {
     getCoaches(),
     getTestimonials(),
   ]);
+
+  if (sections.length > 0) {
+    return <PublicPageRenderer sections={sections as any} />;
+  }
 
   const sectionMap: Record<string, { props: Record<string, unknown> }> = {};
   for (const s of sections) {

@@ -11,6 +11,7 @@ export type SectionType =
   | 'schedule_table'
   | 'gallery'
   | 'contact_info'
+  | 'contact_hero'
   | 'contact_form'
   | 'homeschool_hero'
   | 'homeschool_academics'
@@ -162,6 +163,12 @@ export interface ContactInfoProps {
   socials: Record<string, string>;
 }
 
+export interface ContactHeroProps {
+  eyebrow: string;
+  title: string;
+  description: string;
+}
+
 export interface HomeschoolHeroProps {
   title: string;
   subtitle: string;
@@ -205,6 +212,7 @@ export type SectionPropsMap = {
   schedule_table: ScheduleTableProps;
   gallery: GalleryProps;
   contact_info: ContactInfoProps;
+  contact_hero: ContactHeroProps;
   contact_form: Record<string, never>;
   homeschool_hero: HomeschoolHeroProps;
   homeschool_academics: HomeschoolAcademicsProps;
@@ -226,6 +234,7 @@ export const SECTION_LABELS: Record<SectionType, string> = {
   schedule_table: 'Schedule Table',
   gallery: 'Image Gallery',
   contact_info: 'Contact Info',
+  contact_hero: 'Contact Hero',
   contact_form: 'Contact Form',
   homeschool_hero: 'Homeschool Hero',
   homeschool_academics: 'Academics & Training',
@@ -239,6 +248,6 @@ export const AVAILABLE_SECTION_TYPES: SectionType[] = [
   'programs_grid', 'coaches_grid', 'events_grid',
   'event_categories_grid', 'testimonials_grid',
   'pricing_table', 'schedule_table', 'gallery',
-  'contact_info', 'contact_form', 'homeschool_hero',
+  'contact_info', 'contact_hero', 'contact_form', 'homeschool_hero',
   'homeschool_academics', 'map_embed', 'rich_text',
 ];

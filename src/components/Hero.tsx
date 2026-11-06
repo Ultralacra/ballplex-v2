@@ -10,13 +10,14 @@ type HeroData = {
 };
 
 export default function Hero({
+  videoSrc,
   tagline,
   description,
   location,
   primaryCTA,
   secondaryCTA,
 }: HeroData = {}) {
-  const vSrc = "/ballplex-video.mp4";
+  const vSrc = videoSrc || "/ballplex-video.mp4";
   const tag = tagline || siteConfig.tagline;
   const desc = description || siteConfig.description;
   const loc = location || "Viera, Florida";

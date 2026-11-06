@@ -10,6 +10,7 @@ import { coaches as fallbackCoaches } from "@/data/coaches";
 import { siteConfig } from "@/data/site";
 import { coachAssetUrl } from "@/lib/supabase/storage";
 import type { Coach } from "@/data/coaches";
+import PublicPageRenderer from "@/components/PublicPageRenderer";
 
 const lessonsSlides = [
   {
@@ -265,6 +266,10 @@ export default function ProgramsPage() {
       setCoachesList(cos);
     });
   }, []);
+
+  if (sections.length > 0) {
+    return <PublicPageRenderer sections={sections as any} />;
+  }
 
   const getSection = (type: string) =>
     sections.find((s: any) => s.type === type);

@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import ContactForm from "@/components/ContactForm";
+import PublicPageRenderer from "@/components/PublicPageRenderer";
 import { siteConfig } from "@/data/site";
 
 async function getSections() {
@@ -23,10 +24,15 @@ export default async function ContactPage() {
   for (const s of sections) sectionMap[s.type] = s.props;
 
   const info = (sectionMap["contact_info"] || {}) as any;
+  const contactHero = (sectionMap["contact_hero"] || {}) as any;
   const phone = info.phone || siteConfig.phone;
   const email = info.email || siteConfig.email;
   const addresses = info.addresses || siteConfig.addresses;
   const map = (sectionMap["map_embed"] || {}) as any;
+
+  if (sections.length > 0) {
+    return <PublicPageRenderer sections={sections as any} />;
+  }
 
   return (
     <>
@@ -34,12 +40,14 @@ export default async function ContactPage() {
         <div className="container-page">
           <div className="text-center" data-reveal>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
-              {info.eyebrow || "Contact"}
+              {contactHero.eyebrow || "Contact"}
             </p>
-            <h1 className="section-heading">Get in Touch</h1>
+            <h1 className="section-heading">
+              {contactHero.title || "Get in Touch"}
+            </h1>
             <p className="section-subtitle mx-auto">
-              Have questions? Want to book the facility or organize a special
-              event? We&apos;ll get back to you as soon as possible.
+              {contactHero.description ||
+                "Have questions? Want to book the facility or organize a special event? We'll get back to you as soon as possible."}
             </p>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { events as fallbackEvents } from "@/data/events";
+import PublicPageRenderer from "@/components/PublicPageRenderer";
 
 async function getSections() {
   try {
@@ -47,6 +48,9 @@ function getUpcomingEvents<T extends { date?: string | null }>(events: T[]) {
 
 export default async function EventsPage() {
   const [sections, events] = await Promise.all([getSections(), getEvents()]);
+  if (sections.length > 0) {
+    return <PublicPageRenderer sections={sections as any} />;
+  }
   const upcomingEvents = getUpcomingEvents(events);
   const eventGridSections = sections.filter(
     (section: any) => section.type === "events_grid",

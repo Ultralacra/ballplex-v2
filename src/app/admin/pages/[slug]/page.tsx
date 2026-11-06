@@ -14,6 +14,12 @@ import {
   CircularProgress,
   Alert,
   Snackbar,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  ToggleButton,
+  ToggleButtonGroup,
+  Stack,
 } from "@mui/material";
 import {
   ArrowBack as BackIcon,
@@ -21,6 +27,12 @@ import {
   Close as CloseIcon,
   KeyboardArrowUp as UpIcon,
   KeyboardArrowDown as DownIcon,
+  OpenInNew as PreviewIcon,
+  Computer as DesktopIcon,
+  TabletMac as TabletIcon,
+  Smartphone as MobileIcon,
+  Visibility as ShowIcon,
+  VisibilityOff as HideIcon,
 } from "@mui/icons-material";
 import type { PageSection, SectionType } from "@/lib/types/sections";
 import { SECTION_LABELS, AVAILABLE_SECTION_TYPES } from "@/lib/types/sections";
@@ -50,6 +62,11 @@ export default function PageVisualEditor() {
     null,
   );
   const [draftProps, setDraftProps] = useState<Record<string, unknown>>({});
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewVersion, setPreviewVersion] = useState(0);
+  const [previewDevice, setPreviewDevice] = useState<
+    "desktop" | "tablet" | "mobile"
+  >("desktop");
 
   const fetchSections = useCallback(async () => {
     setLoading(true);
@@ -91,7 +108,10 @@ export default function PageVisualEditor() {
       if (!res.ok) throw new Error();
       const updated = await res.json();
       setSections((prev) => prev.map((s) => (s.id === id ? updated : s)));
-      if (data.props) setDraftProps(data.props);
+      if (data.props) {
+        setDraftProps(data.props);
+        setPreviewVersion((version) => version + 1);
+      }
       setSnackbar("Section updated");
     } catch {
       setSnackbar("Error updating section");
@@ -177,6 +197,7 @@ export default function PageVisualEditor() {
 
   const selectedSection =
     sections.find((section) => section.id === selectedSectionId) || null;
+  const previewPath = slug === "home" ? "/" : `/${slug}`;
 
   const selectSection = (id: string) => {
     const section = sections.find((item) => item.id === id);
@@ -202,6 +223,13 @@ export default function PageVisualEditor() {
         <Typography variant="h4" sx={{ fontWeight: 700, flex: 1 }}>
           {PAGE_LABELS[slug] || slug}
         </Typography>
+        <Button
+          variant="outlined"
+          startIcon={<PreviewIcon />}
+          onClick={() => setPreviewOpen(true)}
+        >
+          Ver página real
+        </Button>
       </Box>
 
       {loading ? (
@@ -222,12 +250,15 @@ export default function PageVisualEditor() {
         <Box
           sx={{
             display: "grid",
-            gridTemplateColumns: { xs: "1fr", lg: "minmax(0, 1fr) 360px" },
+            gridTemplateColumns: {
+              xs: "1fr",
+              lg: "220px minmax(0, 1fr) 360px",
+            },
             gap: 3,
             alignItems: "start",
           }}
         >
-          <Box sx={{ minWidth: 0 }}>
+          <Box sx={{ minWidth: 0, display: "none" }}>
             {sections.length === 0 ? (
               <Box sx={{ textAlign: "center", py: 8 }}>
                 <Typography
@@ -341,12 +372,225 @@ export default function PageVisualEditor() {
             sx={{
               position: { lg: "sticky" },
               top: { lg: 88 },
+              alignSelf: "start",
               overflow: "hidden",
               border: "1px solid rgba(255,255,255,0.1)",
               borderRadius: 1,
               backgroundColor: "#18181b",
             }}
           >
+            <Box
+              sx={{
+                px: 2,
+                py: 1.75,
+                borderBottom: "1px solid rgba(255,255,255,0.1)",
+              }}
+            >
+              <Typography
+                sx={{
+                  color: "#86C9B6",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                }}
+              >
+                Bloques
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                Selecciona una sección para editarla
+              </Typography>
+            </Box>
+            <Box sx={{ p: 1 }}>
+              {sections.map((section, index) => {
+                const isSelected = section.id === selectedSectionId;
+                return (
+                  <Stack key={section.id} direction="row" spacing={0.25} sx={{ mb: 0.5 }}>
+                    <Button
+                      fullWidth
+                      onClick={() => selectSection(section.id)}
+                      sx={{
+                        justifyContent: "flex-start",
+                        gap: 1,
+                        px: 1.25,
+                        py: 1.1,
+                        textAlign: "left",
+                        color: isSelected ? "#fafafa" : "text.secondary",
+                        opacity: section.is_visible ? 1 : 0.45,
+                        backgroundColor: isSelected
+                          ? "rgba(134,201,182,.12)"
+                          : "transparent",
+                        borderLeft: isSelected
+                          ? "2px solid #86C9B6"
+                          : "2px solid transparent",
+                        "&:hover": {
+                          backgroundColor: "rgba(134,201,182,.08)",
+                        },
+                      }}
+                    >
+                      <Typography component="span" sx={{ minWidth: 20, color: isSelected ? "#86C9B6" : "text.disabled", fontSize: 11, fontWeight: 700 }}>
+                        {String(index + 1).padStart(2, "0")}
+                      </Typography>
+                      <Typography component="span" sx={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontSize: 12, fontWeight: isSelected ? 700 : 500 }}>
+                        {section.label || SECTION_LABELS[section.type] || section.type}
+                      </Typography>
+                    </Button>
+                    <IconButton
+                      size="small"
+                      aria-label={section.is_visible ? "Ocultar sección" : "Mostrar sección"}
+                      onClick={() => handleToggleVisibility(section.id)}
+                    >
+                      {section.is_visible ? <HideIcon fontSize="small" /> : <ShowIcon fontSize="small" />}
+                    </IconButton>
+                    <Stack>
+                      <IconButton size="small" disabled={index === 0} onClick={() => handleReorder(section.id, "up")}><UpIcon fontSize="small" /></IconButton>
+                      <IconButton size="small" disabled={index === sections.length - 1} onClick={() => handleReorder(section.id, "down")}><DownIcon fontSize="small" /></IconButton>
+                    </Stack>
+                  </Stack>
+                );
+              })}
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              minWidth: 0,
+              position: { lg: "sticky" },
+              top: { lg: 88 },
+              overflow: "hidden",
+              border: "1px solid rgba(255,255,255,0.1)",
+              borderRadius: 1,
+              backgroundColor: "#09090b",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: { xs: "flex-start", sm: "center" },
+                justifyContent: "space-between",
+                gap: 1,
+                flexWrap: "wrap",
+                px: 2,
+                py: 1.5,
+                borderBottom: "1px solid rgba(255,255,255,0.1)",
+              }}
+            >
+              <Typography
+                sx={{
+                  color: "#86C9B6",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                }}
+              >
+                Frontend real
+              </Typography>
+              <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+                <ToggleButtonGroup
+                  size="small"
+                  exclusive
+                  value={previewDevice}
+                  onChange={(_, value) => value && setPreviewDevice(value)}
+                  aria-label="Tamaño de vista previa"
+                >
+                  <ToggleButton value="desktop" aria-label="Vista de escritorio">
+                    <DesktopIcon fontSize="small" />
+                  </ToggleButton>
+                  <ToggleButton value="tablet" aria-label="Vista de tablet">
+                    <TabletIcon fontSize="small" />
+                  </ToggleButton>
+                  <ToggleButton value="mobile" aria-label="Vista de móvil">
+                    <MobileIcon fontSize="small" />
+                  </ToggleButton>
+                </ToggleButtonGroup>
+                <Button
+                  size="small"
+                  startIcon={<PreviewIcon />}
+                  onClick={() => setPreviewOpen(true)}
+                >
+                  Pantalla completa
+                </Button>
+              </Stack>
+            </Box>
+            <Box
+              sx={{
+                height: { xs: 520, lg: "calc(100vh - 170px)" },
+                overflow: "auto",
+                background:
+                  "radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px)",
+                backgroundSize: "16px 16px",
+                p: { xs: 0, md: 2 },
+              }}
+            >
+              <Box
+                sx={{
+                  width:
+                    previewDevice === "mobile"
+                      ? 390
+                      : previewDevice === "tablet"
+                        ? 768
+                        : "100%",
+                  maxWidth: "100%",
+                  height: "100%",
+                  mx: "auto",
+                  overflow: "hidden",
+                  border:
+                    previewDevice === "desktop"
+                      ? "0"
+                      : "1px solid rgba(255,255,255,.14)",
+                  borderRadius: previewDevice === "desktop" ? 0 : 2,
+                  backgroundColor: "#09090b",
+                  transition: "width .2s ease",
+                }}
+              >
+                <iframe
+                  key={previewVersion}
+                  title={`Frontend real de ${PAGE_LABELS[slug] || slug}`}
+                src={`${previewPath}?adminPreview=${previewVersion}`}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    height: "100%",
+                    border: 0,
+                    backgroundColor: "#09090b",
+                  }}
+                />
+              </Box>
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              position: { lg: "sticky" },
+              top: { lg: 88 },
+              overflow: "hidden",
+              border: "1px solid rgba(255,255,255,0.1)",
+              borderRadius: 1,
+              backgroundColor: "#18181b",
+            }}
+          >
+            <Box
+              sx={{
+                p: 2,
+                borderBottom: "1px solid rgba(255,255,255,0.1)",
+              }}
+            >
+              <FormControl fullWidth size="small">
+                <InputLabel>Bloque a editar</InputLabel>
+                <Select
+                  value={selectedSectionId || ""}
+                  label="Bloque a editar"
+                  onChange={(event) => selectSection(event.target.value)}
+                >
+                  {sections.map((section) => (
+                    <MenuItem key={section.id} value={section.id}>
+                      {section.label || SECTION_LABELS[section.type] || section.type}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
             {selectedSection ? (
               <>
                 <Box
@@ -475,6 +719,38 @@ export default function PageVisualEditor() {
         message={snackbar}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       />
+
+      <Dialog open={previewOpen} onClose={() => setPreviewOpen(false)} fullScreen>
+        <DialogTitle
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            borderBottom: "1px solid rgba(255,255,255,0.1)",
+          }}
+        >
+          <Typography sx={{ flex: 1, fontWeight: 700 }}>
+            Vista previa real — {PAGE_LABELS[slug] || slug}
+          </Typography>
+          <Button onClick={() => setPreviewOpen(false)}>
+            Volver al editor
+          </Button>
+        </DialogTitle>
+        <DialogContent sx={{ p: 0, backgroundColor: "#09090b" }}>
+          <iframe
+            key={previewVersion}
+            title={`Vista previa de ${PAGE_LABELS[slug] || slug}`}
+                  src={`${previewPath}?adminPreview=${previewVersion}`}
+            style={{
+              display: "block",
+              width: "100%",
+              height: "100%",
+              border: 0,
+              backgroundColor: "#09090b",
+            }}
+          />
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 }

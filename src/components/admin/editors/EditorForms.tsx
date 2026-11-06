@@ -1098,6 +1098,33 @@ export function EditorForm({ type, props, onChange }: EditorFormProps) {
         </Stack>
       );
 
+    case "contact_hero":
+      return (
+        <Stack spacing={2}>
+          <Text
+            label="Eyebrow / Small heading"
+            value={P("eyebrow", "Contact") as string}
+            onChange={(v) => onChange({ ...props, eyebrow: v })}
+          />
+          <Text
+            label="Title"
+            value={P("title", "Get in Touch") as string}
+            onChange={(v) => onChange({ ...props, title: v })}
+          />
+          <TextField
+            label="Description"
+            value={P("description", "") as string}
+            onChange={(e) =>
+              onChange({ ...props, description: e.target.value })
+            }
+            fullWidth
+            multiline
+            rows={3}
+            size="small"
+          />
+        </Stack>
+      );
+
     case "contact_info":
       return (
         <Stack spacing={2}>

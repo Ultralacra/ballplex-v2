@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { supabaseAdmin } from '@/lib/supabase/admin';
+import { requireRole } from '@/lib/auth/require-role';
+import { createSectionProps } from '@/lib/sections/registry';
+import { validateSectionPayload } from '@/lib/sections/validation';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -34,17 +38,26 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const { supabaseAdmin } = await import('@/lib/supabase/admin');
+  const { profile, response } = await requireRole('editor');
+  if (!profile) return response;
+
   const body = await request.json();
   const { page_slug, type, label, props, order_index } = body;
 
-  if (!page_slug || !type) {
-    return NextResponse.json({ error: 'page_slug and type are required' }, { status: 400 });
+  const validationError = validateSectionPayload(page_slug, type, props || {});
+  if (validationError) {
+    return NextResponse.json({ error: validationError }, { status: 400 });
   }
 
   const { data, error } = await supabaseAdmin
     .from('page_sections')
-    .insert({ page_slug, type, label: label || '', props: props || {}, order_index: order_index || 0 })
+    .insert({
+      page_slug,
+      type,
+      label: label || '',
+      props: createSectionProps(type, props),
+      order_index: Number.isFinite(order_index) ? order_index : 0,
+    })
     .select()
     .single();
 

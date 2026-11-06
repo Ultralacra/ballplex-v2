@@ -2,10 +2,35 @@
 
 import { useState, useEffect } from "react";
 import { navLinks, siteConfig } from "@/data/site";
+import { createClient } from "@/lib/supabase/client";
+import type { NavLink } from "@/data/site";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [links, setLinks] = useState<NavLink[]>(navLinks);
+  const [bookNowUrl, setBookNowUrl] = useState(siteConfig.bookNowUrl);
+  const [logoUrl, setLogoUrl] = useState("/LOGO.png");
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase
+      .from("site_config")
+      .select("nav_links, book_now_url, logo_url")
+      .limit(1)
+      .then(({ data }) => {
+        const config = data?.[0];
+        if (Array.isArray(config?.nav_links) && config.nav_links.length > 0) {
+          setLinks(config.nav_links as NavLink[]);
+        }
+        if (typeof config?.book_now_url === "string" && config.book_now_url) {
+          setBookNowUrl(config.book_now_url);
+        }
+        if (typeof config?.logo_url === "string" && config.logo_url) {
+          setLogoUrl(config.logo_url);
+        }
+      });
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -30,7 +55,7 @@ export default function Header() {
       >
         <a href="/" className="flex items-center gap-3" aria-label="Ballplex Home">
           <img
-            src="/LOGO.png"
+            src={logoUrl}
             alt="Ballplex"
             id="header-logo"
             className={`w-auto transition-all duration-500 ${
@@ -40,7 +65,7 @@ export default function Header() {
         </a>
 
         <ul className="hidden items-center gap-1 lg:flex">
-          {navLinks.map((link) => (
+          {links.map((link) => (
             <li key={link.href} className={link.children ? "group relative" : ""}>
               <a
                 href={link.href}
@@ -78,7 +103,7 @@ export default function Header() {
 
         <div className="flex items-center gap-4">
           <a
-            href={siteConfig.bookNowUrl}
+            href={bookNowUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary hidden lg:inline-flex"
@@ -87,7 +112,7 @@ export default function Header() {
           </a>
 
           <a
-            href={siteConfig.bookNowUrl}
+            href={bookNowUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center rounded-lg p-2 transition-colors hover:bg-white/10 lg:hidden"
@@ -121,7 +146,7 @@ export default function Header() {
           className="border-t border-white/10 bg-black/95 backdrop-blur-xl lg:hidden"
         >
           <ul className="container-page flex flex-col gap-1 py-4">
-            {navLinks.map((link) => (
+            {links.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}

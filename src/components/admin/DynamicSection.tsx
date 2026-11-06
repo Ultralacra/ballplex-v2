@@ -73,6 +73,10 @@ export default function DynamicSection<T extends SectionType>({
       return (
         <ContactInfoSection {...(props as SectionPropsMap["contact_info"])} />
       );
+    case "contact_hero":
+      return (
+        <ContactHeroSection {...(props as SectionPropsMap["contact_hero"])} />
+      );
     case "contact_form":
       return <ContactFormSection />;
     case "homeschool_hero":
@@ -642,6 +646,28 @@ function ContactFormSection() {
     <section className="bg-brand-dark py-16 md:py-20">
       <div className="container-page">
         <ContactForm />
+      </div>
+    </section>
+  );
+}
+
+function ContactHeroSection({
+  eyebrow,
+  title,
+  description,
+}: SectionPropsMap["contact_hero"]) {
+  return (
+    <section className="pt-32 pb-20 md:pt-40 md:pb-28">
+      <div className="container-page">
+        <div className="text-center" data-reveal>
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-teal">
+            {eyebrow || "Contact"}
+          </p>
+          <h1 className="section-heading">{title || "Get in Touch"}</h1>
+          <p className="section-subtitle mx-auto">
+            {description || "Have questions? Want to book the facility or organize a special event? We'll get back to you as soon as possible."}
+          </p>
+        </div>
       </div>
     </section>
   );
